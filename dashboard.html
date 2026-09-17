@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - W2 CHEATS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <script>
+        // Instant Theme Loader - Prevents "Orange Flash"
+        (function() {
+            const savedH = localStorage.getItem('w2_primary_h');
+            if (savedH) document.documentElement.style.setProperty('--primary-h', savedH);
+        })();
+    </script>
+    <link rel="stylesheet" href="games.css">
+</head>
+<body class="dashboard-body">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <img src="assets/logo.png" alt="W2 Pro Logo" class="sidebar-logo">
+        </div>
+
+        <div class="user-profile-sm">
+            <div class="avatar" id="sidebarAvatar">SA</div>
+            <div class="user-info">
+                <h4><span id="displayUsername">savasibrahim168...</span> <i class="fa-solid fa-crown text-primary"></i></h4>
+                <span class="status"><i class="fa-solid fa-circle text-success"></i> Çevrimiçi • Kullanıcı</span>
+            </div>
+        </div>
+
+
+
+        <nav class="sidebar-nav">
+            <a href="profile.html" class="nav-item" data-i18n="Profil"><i class="fa-regular fa-user"></i> Profil</a>
+            
+            <div class="nav-dropdown">
+                <a href="#" class="nav-item nav-dropdown-toggle" data-i18n="Tarih"><i class="fa-solid fa-clock-rotate-left"></i> Tarih <i class="fa-solid fa-chevron-right ms-auto dropdown-icon"></i></a>
+                <div class="nav-submenu">
+                    <a href="history.html?type=payments" class="nav-sub-item" data-i18n="Ödeme Geçmişi"><i class="fa-regular fa-credit-card"></i> Ödeme Geçmişi</a>
+                    <a href="history.html?type=purchases" class="nav-sub-item" data-i18n="Satın Alma Geçmişi"><i class="fa-solid fa-cart-shopping"></i> Satın Alma Geçmişi</a>
+                    <a href="history.html?type=refunds" class="nav-sub-item" data-i18n="Para İadesi Geçmişi"><i class="fa-solid fa-money-bill-transfer"></i> Para İadesi Geçmişi</a>
+                </div>
+            </div>
+
+
+            <a href="store.html" class="nav-item" data-i18n="Mağaza"><i class="fa-solid fa-bag-shopping"></i> Mağaza</a>
+            <a href="support.html" class="nav-item" data-i18n="Destek"><i class="fa-solid fa-headset"></i> Destek Merkezi</a>
+            
+            <!-- Dynamic Purchased Links Section -->
+            <div id="dynamicLinksContainer"></div>
+            
+            <div class="nav-divider"></div>
+            
+            <a href="https://chat.whatsapp.com/KX3XeFDc5KX0pMtUEO3EoA?mode=ems_copy_t" target="_blank" class="nav-item text-muted" data-i18n="WhatsApp Grubu"><i class="fa-brands fa-whatsapp"></i> WhatsApp Grubu <i class="fa-solid fa-arrow-up-right-from-square ms-auto"></i></a>
+            <a href="#" class="nav-item text-muted" data-i18n="Discord Sunucusu"><i class="fa-brands fa-discord"></i> Discord Sunucusu <i class="fa-solid fa-arrow-up-right-from-square ms-auto"></i></a>
+        </nav>
+
+        <a href="index.html" class="logout-btn" data-i18n="Dışarı çıkmak"><i class="fa-solid fa-right-from-bracket"></i> Dışarı çıkmak</a>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Top Navbar -->
+        <header class="top-nav">
+            <div class="nav-left">
+                <!-- Mobile toggle -->
+                <button class="menu-toggle"><i class="fa-solid fa-bars"></i></button>
+            </div>
+            <div class="nav-actions">
+
+                <button class="action-btn active-orange" id="btnDailyBonus" data-i18n="Günlük Bonus"><i class="fa-solid fa-gift"></i> Günlük Bonus</button>
+                <button class="action-btn border-orange" data-i18n="Promosyon Kodu"><i class="fa-solid fa-ticket"></i> Promosyon Kodu</button>
+                <button class="action-btn transparent" data-i18n="Mağaza"><i class="fa-solid fa-lock"></i> Mağaza</button>
+                
+                <button class="icon-btn" onclick="toggleSettingsModal(true)"><i class="fa-solid fa-gear"></i></button>
+                <button class="icon-btn" id="btnNews" onclick="toggleNewsModal(true)"><i class="fa-regular fa-envelope"></i></button>
+                <button class="icon-btn" onclick="toggleNotifications(this, event)"><i class="fa-regular fa-bell"></i></button>
+                
+                <div class="balance-badge">
+                    <i class="fa-solid fa-bolt"></i> <span id="userBalanceDisplay">0.00 ₺</span> <i class="fa-solid fa-star"></i>
+                </div>
+                <div class="top-avatar" id="navAvatar">SA</div>
+            </div>
+        </header>
+
+        <!-- Dashboard Content -->
+        <div class="content-wrapper">
+            <!-- Downloads Header -->
+            <div class="page-header" style="justify-content: space-between; display: flex; align-items: center; margin-bottom: 2rem;">
+                <div style="display: flex; align-items: center; gap: 1.5rem;">
+                    <div class="header-icon"><i class="fa-solid fa-cloud-arrow-down"></i></div>
+                    <div>
+                        <h1 data-i18n="İndirmeler & Kontrol">İndirmeler & Kontrol</h1>
+                        <p data-i18n="Satın aldığınız tüm hileler ve araçlar burada listelenir.">Satın aldığınız tüm hileler ve araçlar burada listelenir.</p>
+                    </div>
+                </div>
+                <a href="store.html" class="action-btn border-orange" style="text-decoration: none;"><i class="fa-solid fa-cart-shopping"></i> <span data-i18n="Yeni Ürün Al">Yeni Ürün Al</span></a>
+            </div>
+
+            <!-- Service Status Board -->
+            <div class="status-board glass" style="margin-bottom: 2rem; padding: 1.5rem; border-radius: var(--radius-md); display: flex; flex-wrap: wrap; gap: 20px; align-items: center; justify-content: space-between; border: 1px solid var(--primary-glow);">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <div class="pulse-icon" style="width: 10px; height: 10px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 10px #22c55e;"></div>
+                    <h4 style="margin:0; font-size:0.9rem; letter-spacing:1px;" data-i18n="SİSTEM DURUMU">SİSTEM DURUMU</h4>
+                </div>
+                <div class="status-items" style="display:flex; gap:25px; flex-wrap:wrap; align-items:center;">
+                    <button onclick="runSmartDebugger()" style="background:var(--primary-glow); border:1px solid var(--primary); color:white; padding:0.4rem 0.8rem; border-radius:6px; cursor:pointer; font-size:0.75rem; font-weight:bold; transition:0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                        <i class="fa-solid fa-screwdriver-wrench"></i> <span data-i18n="Hata Ayıklayıcı">Hata Ayıklayıcı</span>
+                    </button>
+                    <div class="s-item" style="display:flex; align-items:center; gap:8px; font-size:0.85rem;">
+                        <span style="color:var(--text-muted);">FREE FIRE:</span>
+                        <span style="color:#22c55e; font-weight:bold;"><i class="fa-solid fa-check-circle"></i> <span data-i18n="AKTİF">AKTİF</span></span>
+                    </div>
+                    <div class="s-item" style="display:flex; align-items:center; gap:8px; font-size:0.85rem;">
+                        <span style="color:var(--text-muted);">UID BYPASS:</span>
+                        <span style="color:#22c55e; font-weight:bold;"><i class="fa-solid fa-check-circle"></i> <span data-i18n="AKTİF">AKTİF</span></span>
+                    </div>
+                    <div class="s-item" style="display:flex; align-items:center; gap:8px; font-size:0.85rem;">
+                        <span style="color:var(--text-muted);">BYPASS V4:</span>
+                        <span style="color:#22c55e; font-weight:bold;"><i class="fa-solid fa-shield-halved"></i> <span data-i18n="GÜVENLİ">GÜVENLİ</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Library Content Wrapper -->
+            <div id="noProductsMessage" style="display: none; background: rgba(255, 255, 255, 0.02); border: 2px dashed var(--border-color); border-radius: 20px; padding: 4rem 2rem; text-align: center; margin-bottom: 2rem;">
+                <div style="font-size: 3rem; color: #333; margin-bottom: 1.5rem;"><i class="fa-solid fa-box-open"></i></div>
+                <h3 data-i18n="Henüz bir ürününüz yok">Henüz bir ürününüz yok</h3>
+                <p style="color: #666; margin-bottom: 2rem;" data-i18n="Satın aldığınız ürünler anında bu bölüme eklenecektir.">Satın aldığınız ürünler anında bu bölüme eklenecektir.</p>
+                <a href="store.html" class="btn-primary" style="display: inline-flex; width: auto; padding: 1rem 2rem; text-decoration: none;"><i class="fa-solid fa-magnifying-glass"></i> <span data-i18n="Mağazaya Göz At">Mağazaya Göz At</span></a>
+            </div>
+
+            <div class="downloads-grid">
+                <!-- Free Fire MOD MENU Card -->
+                <div class="cheat-card premium-glow" id="containerModMenu" style="display: none;">
+                    <div class="card-badge badge-vurgu" data-i18n="VURGU">VURGU</div>
+                    <div class="card-image" style="background-image: url('assets/ff_mod_menu_user.png'); background-position: center; background-size: cover;">
+                        <div class="overlay-fade"></div>
+                    </div>
+                    
+                    <div class="card-body">
+                        <h3 data-i18n="FREE FIRE MOD MENÜ">FREE FIRE MOD MENÜ</h3>
+                        <p class="update-text" data-i18n="Son Güncelleme: Bugün">Son Güncelleme: Bugün</p>
+                        
+                        <div class="platform-tags">
+                            <span data-i18n="Oyunlar">Oyunlar</span>
+                            <span data-i18n="Masaüstü">Masaüstü</span>
+                            <span>Windows</span>
+                        </div>
+
+                        <div class="card-footer">
+                            <div class="version-info">
+                                <i class="fa-regular fa-calendar-check"></i>
+                                <span><span data-i18n="Güncellendi ">Güncellendi </span><br><strong>32 & 64 Bit SAFE</strong></span>
+                            </div>
+                            
+                            <div class="product-info">
+                                <button class="add-btn"><i class="fa-solid fa-plus"></i></button>
+                                <span><span data-i18n="Seçenekler ">Seçenekler </span><br><strong><span data-i18n="1 Ürün">1 Ürün</span></strong></span>
+                            </div>
+                        </div>
+
+                        <button class="btn-primary w-100 mt-3" id="btnDashboardModMenu" data-i18n="SEÇENEKLERİ GÖRÜNTÜLE" onclick="window.location.href='store.html'"><i class="fa-solid fa-lock"></i> SATIN ALINMADI</button>
+                    </div>
+                </div>
+
+                <!-- Free Fire EXTERNAL Card -->
+                <div class="cheat-card premium-glow" id="containerExternal" style="display: none;">
+                    <div class="card-badge badge-guvenli" data-i18n="GÜVENLİ">GÜVENLİ</div>
+                    <div class="card-image" style="background-image: url('assets/ff_external_user.png'); background-position: center; background-size: cover;">
+                        <div class="overlay-fade"></div>
+                    </div>
+                    
+                    <div class="card-body">
+                        <h3 data-i18n="FREE FIRE EXTERNAL">FREE FIRE EXTERNAL</h3>
+                        <p class="update-text" data-i18n="Son Güncelleme: Bugün">Son Güncelleme: Bugün</p>
+                        
+                        <div class="platform-tags">
+                            <span data-i18n="Oyunlar">Oyunlar</span>
+                            <span data-i18n="Masaüstü">Masaüstü</span>
+                            <span>Windows</span>
+                        </div>
+
+                        <div class="card-footer">
+                            <div class="version-info">
+                                <i class="fa-regular fa-calendar-check"></i>
+                                <span><span data-i18n="Güncellendi ">Güncellendi </span><br><strong>32 & 64 Bit SAFE</strong></span>
+                            </div>
+                            
+                            <div class="product-info">
+                                <button class="add-btn"><i class="fa-solid fa-plus"></i></button>
+                                <span><span data-i18n="Seçenekler ">Seçenekler </span><br><strong><span data-i18n="1 Ürün">1 Ürün</span></strong></span>
+                            </div>
+                        </div>
+
+                        <button class="btn-primary w-100 mt-3" id="btnDashboardExternal" data-i18n="SEÇENEKLERİ GÖRÜNTÜLE" onclick="window.location.href='store.html'"><i class="fa-solid fa-lock"></i> SATIN ALINMADI</button>
+                    </div>
+                </div>
+
+                <!-- Free Fire BYPASS Card -->
+                <div class="cheat-card premium-glow" id="containerBypass" style="display: none;">
+                    <div class="card-badge badge-yeni" data-i18n="YENİ">YENİ</div>
+                    <div class="card-image" style="background-image: url('assets/ff_bypass_user.png'); background-position: center; background-size: cover;">
+                        <div class="overlay-fade"></div>
+                    </div>
+                    
+                    <div class="card-body">
+                        <h3 data-i18n="FREE FIRE BYPASS">FREE FIRE BYPASS</h3>
+                        <p class="update-text" data-i18n="Son Güncelleme: Bugün">Son Güncelleme: Bugün</p>
+                        
+                        <div class="platform-tags">
+                            <span data-i18n="Oyunlar">Oyunlar</span>
+                            <span data-i18n="Masaüstü">Masaüstü</span>
+                            <span>Windows</span>
+                        </div>
+
+                        <div class="card-footer">
+                            <div class="version-info">
+                                <i class="fa-regular fa-calendar-check"></i>
+                                <span><span data-i18n="Güncellendi ">Güncellendi </span><br><strong>32 & 64 Bit SAFE</strong></span>
+                            </div>
+                            
+                            <div class="product-info">
+                                <button class="add-btn"><i class="fa-solid fa-plus"></i></button>
+                                <span><span data-i18n="Seçenekler ">Seçenekler </span><br><strong><span data-i18n="1 Ürün">1 Ürün</span></strong></span>
+                            </div>
+                        </div>
+
+                        <button class="btn-primary w-100 mt-3" id="btnDashboardBypass" data-i18n="SEÇENEKLERİ GÖRÜNTÜLE" onclick="window.location.href='store.html'"><i class="fa-solid fa-lock"></i> SATIN ALINMADI</button>
+                    </div>
+                </div>
+
+                <!-- Free Fire UID BYPASS Card -->
+                <div class="cheat-card premium-glow" id="containerUIDBypass" style="display: none;">
+                    <div class="card-badge badge-pro" style="background: #a855f7; color:white;">VIP</div>
+                    <div class="card-image" style="background-image: url('assets/ff_mod_menu_user.png'); background-position: center; background-size: cover;">
+                        <div class="overlay-fade"></div>
+                    </div>
+                    
+                    <div class="card-body">
+                        <h3 data-i18n="FREE FIRE UID BYPASS">FREE FIRE UID BYPASS</h3>
+                        <p class="update-text" data-i18n="Son Güncelleme: Bugün">Son Güncelleme: Bugün</p>
+                        
+                        <div class="platform-tags">
+                            <span data-i18n="Oyunlar">Oyunlar</span>
+                            <span data-i18n="Masaüstü">Masaüstü</span>
+                            <span>Windows</span>
+                        </div>
+ 
+                        <div class="card-footer">
+                            <div class="version-info">
+                                <i class="fa-regular fa-calendar-check"></i>
+                                <span><span data-i18n="Güncellendi ">Güncellendi </span><br><strong>Anti-HWID SAFE</strong></span>
+                            </div>
+                            
+                            <div class="product-info">
+                                <button class="add-btn"><i class="fa-solid fa-plus"></i></button>
+                                <span><span data-i18n="Seçenekler ">Seçenekler </span><br><strong><span data-i18n="1 Ürün">1 Ürün</span></strong></span>
+                            </div>
+                        </div>
+ 
+                        <button class="btn-primary w-100 mt-3" id="btnDashboardUIDBypass" data-i18n="SEÇENEKLERİ GÖRÜNTÜLE" onclick="window.location.href='store.html'"><i class="fa-solid fa-lock"></i> SATIN ALINMADI</button>
+                    </div>
+                </div>
+                <!-- Free Fire IOS MOD MENÜ Card -->
+                <div class="cheat-card premium-glow" id="containerIOS" style="display: none;">
+                    <div class="card-badge" style="background: white; color: black;"><i class="fa-brands fa-apple"></i> ELITE</div>
+                    <div class="card-image" style="background-image: url('assets/ff_ios_mod.png'); background-position: center; background-size: cover;">
+                        <div class="overlay-fade"></div>
+                    </div>
+                    
+                    <div class="card-body">
+                        <h3 data-i18n="FREE FIRE IOS MOD">FREE FIRE IOS MOD MENÜ</h3>
+                        <p class="update-text" data-i18n="Son Güncelleme: Bugün">Son Güncelleme: Bugün</p>
+                        
+                        <div class="platform-tags">
+                            <span>iOS</span>
+                            <span>iPhone/iPad</span>
+                            <span>No Jailbreak</span>
+                        </div>
+ 
+                        <div class="card-footer">
+                            <div class="version-info">
+                                <i class="fa-brands fa-apple"></i>
+                                <span><span data-i18n="Güncellendi ">Güncellendi </span><br><strong>Sertifikalı</strong></span>
+                            </div>
+                            
+                            <div class="product-info">
+                                <button class="add-btn"><i class="fa-solid fa-plus"></i></button>
+                                <span><span data-i18n="Seçenekler ">Seçenekler </span><br><strong><span data-i18n="1 Ürün">1 Ürün</span></strong></span>
+                            </div>
+                        </div>
+ 
+                        <button class="btn-primary w-100 mt-3" id="btnDashboardIOS" data-i18n="SEÇENEKLERİ GÖRÜNTÜLE" onclick="window.location.href='store.html'"><i class="fa-solid fa-lock"></i> SATIN ALINMADI</button>
+                    </div>
+                </div>
+                <!-- Features Details Card -->
+                <div class="features-card" style="margin-top:0; border-color: rgba(249, 115, 22, 0.1); background-image: radial-gradient(rgba(249,115,22,0.03) 1px, transparent 1px); background-size: 20px 20px;">
+                    <h3 data-i18n="VIP Özellikler" style="color: #f97316;"><i class="fa-solid fa-list-check"></i> VIP Özellikler</h3>
+                    <ul class="feature-list">
+                        <li data-i18n="Aimbot & Auto Headshot"><i class="fa-solid fa-check" style="color:#22c55e;"></i> Aimbot & Auto Headshot</li>
+                        <li data-i18n="ESP (Wallhack, İsim, Can)"><i class="fa-solid fa-check" style="color:#22c55e;"></i> ESP (Wallhack, İsim, Can)</li>
+                        <li data-i18n="Pull Enemy"><i class="fa-solid fa-check" style="color:#22c55e;"></i> Pull Enemy</li>
+                        <li data-i18n="Anti-Ban Koruması v4"><i class="fa-solid fa-check" style="color:#22c55e;"></i> Anti-Ban Koruması v4</li>
+                    </ul>
+                    <div class="status-box" style="margin-top: auto; background: rgba(34, 197, 94, 0.05); border: 1px solid rgba(34, 197, 94, 0.1); padding: 0.8rem 1rem; border-radius: 6px; display: flex; align-items: center; gap: 0.8rem;">
+                        <div class="status-indicator online" style="width: 12px; height: 12px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 10px #22c55e; position: relative;"></div> 
+                        <span data-i18n="Sistem Durumu:" style="font-size: 0.85rem; color: var(--text-muted);">Sistem Durumu:</span> <strong><span data-i18n="AKTİF VE GÜVENLİ" style="font-size: 0.85rem; color: white;">AKTİF VE GÜVENLİ</span></strong>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </main>
+
+
+
+
+    <!-- Spin the Wheel Game Modal -->
+    <div id="spinWheelModalOverlay" class="modal-overlay">
+        <div class="spin-wheel-modal">
+            <div class="modal-header">
+                <div class="header-with-icon">
+                    <div class="header-icon-orange"><i class="fa-solid fa-dharmachakra"></i></div>
+                    <div>
+                        <h2>Döndürme Çarkı</h2>
+                        <p>Çarkı çevirin ve muhteşem ödüller kazanın!</p>
+                    </div>
+                </div>
+                <button class="close-modal-btn" onclick="toggleSpinModal(false)"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="wheel-game-container">
+                <!-- Left: Interactive Wheel -->
+                <div class="wheel-section">
+                    <div class="wheel-outer">
+                        <div class="wheel-pointer"></div>
+                        <div class="wheel" id="mainWheel">
+                            <div class="wheel-inner" id="wheelImg">
+                                <div class="segment" data-type="bonus" style="transform: rotate(0deg);"><span><i class="fa-solid fa-coins"></i>BONUS KREDİSİ</span></div>
+                                <div class="segment" data-type="skull" style="transform: rotate(45deg);"><span><i class="fa-solid fa-skull"></i>KAFATASI ÜŞÜMESİ!!</span></div>
+                                <div class="segment" data-type="gift" style="transform: rotate(90deg);"><span><i class="fa-solid fa-gift"></i>1 GÜNLÜK ÜRÜN</span></div>
+                                <div class="segment" data-type="skull" style="transform: rotate(135deg);"><span><i class="fa-solid fa-skull"></i>KAFATASI ÜŞÜMESİ!!</span></div>
+                                <div class="segment" data-type="gift" style="transform: rotate(180deg);"><span><i class="fa-solid fa-gift"></i>7 GÜNLÜK ÜRÜN</span></div>
+                                <div class="segment" data-type="skull" style="transform: rotate(225deg);"><span><i class="fa-solid fa-skull"></i>KAFATASI ÜŞÜMESİ!!</span></div>
+                                <div class="segment" data-type="vip" style="transform: rotate(270deg);"><span><i class="fa-solid fa-crown"></i>30 GÜNLÜK ÜRÜN</span></div>
+                                <div class="segment" data-type="skull" style="transform: rotate(315deg);"><span><i class="fa-solid fa-skull"></i>KAFATASI ÜŞÜMESİ!!</span></div>
+                            </div>
+                            <div class="wheel-center"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Controls -->
+                <div class="wheel-controls">
+                    <div class="balance-display-box">
+                        <div class="box-icon"><i class="fa-solid fa-wallet"></i></div>
+                        <div>
+                            <p>MEVCUT BAKİYE</p>
+                            <h3 id="wheelBalanceText">0.00 ₺</h3>
+                        </div>
+                    </div>
+
+                    <div class="bet-control">
+                        <div class="bet-label">
+                            <span><i class="fa-solid fa-circle"></i> BAHİS</span>
+                            <span id="betAmountDisplay">1.00 ₺</span>
+                        </div>
+                    </div>
+
+                    <div class="multiplier-section">
+                        <p>ÇARPAN</p>
+                        <div class="multiplier-tabs">
+                            <button class="m-tab active" onclick="setMultiplier(1, this)">1x</button>
+                            <button class="m-tab" onclick="setMultiplier(5, this)">5x</button>
+                            <button class="m-tab" onclick="setMultiplier(10, this)">10x</button>
+                        </div>
+                    </div>
+
+                    <button class="btn-spin-wheel" id="btnSpin">DÖNDÜR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Secret Product Panel Modal -->
+    <div id="productPanelModal" class="modal-overlay">
+        <div class="product-panel-modal" style="background: var(--bg-card); max-width: 600px; width: 90%; border-radius: 12px; border: 1px solid var(--primary-glow); padding: 25px; position: relative; color: white;">
+            <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; padding-bottom: 15px; margin-bottom: 20px;">
+                <div>
+                    <h2 id="panelProductTitle" style="color: var(--primary); font-size: 1.5rem; margin-bottom: 5px;">FREE FIRE - MOD MENÜSÜ</h2>
+                    <p style="color: #aaa; font-size: 0.9rem;">Gizli Kontrol Paneli ve Kaynaklar</p>
+                </div>
+                <button class="close-modal-btn" onclick="document.getElementById('productPanelModal').classList.remove('show'); setTimeout(()=>document.getElementById('productPanelModal').style.display='none', 300)" style="background: none; border: none; font-size: 1.5rem; color: #888; cursor: pointer;"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <div class="panel-body" style="display: flex; flex-direction: column; gap: 15px;">
+                <!-- Files Link -->
+                <div class="resource-box" style="background: rgba(34, 197, 94, 0.05); border: 1px solid rgba(34, 197, 94, 0.2); padding: 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h3 style="font-size: 1.1rem; margin-bottom: 5px;"><i class="fa-solid fa-link" style="color: #22c55e;"></i> Panel Linki</h3>
+                        <p style="font-size: 0.85rem; color: #aaa;">Hileyi indirmek ve başlatmak için panel linkine gidin.</p>
+                    </div>
+                    <a id="filesLinkBtn" href="#" target="_blank" class="btn-primary" style="background: #22c55e; border-color: #22c55e; padding: 8px 15px; text-decoration: none; border-radius: 6px; font-size: 0.9rem;"><i class="fa-solid fa-download"></i> Panele Git</a>
+                </div>
+
+                <!-- Video Link -->
+                <div class="resource-box" style="background: rgba(14, 165, 233, 0.05); border: 1px solid rgba(14, 165, 233, 0.2); padding: 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h3 style="font-size: 1.1rem; margin-bottom: 5px;"><i class="fa-brands fa-youtube" style="color: #0ea5e9;"></i> Kurulum Videosu</h3>
+                        <p style="font-size: 0.85rem; color: #aaa;">Adım adım kurulum yönergelerini izleyin.</p>
+                    </div>
+                    <a id="videoLinkBtn" href="#" target="_blank" class="btn-primary" style="background: #0ea5e9; border-color: #0ea5e9; padding: 8px 15px; text-decoration: none; border-radius: 6px; font-size: 0.9rem;"><i class="fa-solid fa-play"></i> İzle</a>
+                </div>
+
+                <!-- Error Fix Link (Dynamic) -->
+                <div id="errorFixBox" class="resource-box" style="background: rgba(239, 68, 68, 0.05); border: 1px solid rgba(239, 68, 68, 0.2); padding: 15px; border-radius: 8px; display: none; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h3 style="font-size: 1.1rem; margin-bottom: 5px;"><i class="fa-solid fa-screwdriver-wrench" style="color: #ef4444;"></i> Error-Fix (Eksik Dosyalar)</h3>
+                        <p style="font-size: 0.85rem; color: #aaa;">Hata alanlar için yardımcı araç paketi.</p>
+                    </div>
+                    <a id="errorFixLinkBtn" href="#" target="_blank" class="btn-primary" style="background: #ef4444; border-color: #ef4444; padding: 8px 15px; text-decoration: none; border-radius: 6px; font-size: 0.9rem;"><i class="fa-solid fa-wrench"></i> Tamir Et</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

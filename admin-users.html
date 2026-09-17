@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Paneli - W2 CHEATS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="admin.css">
+    <script>
+        // Instant Theme Loader - Prevents "Orange Flash"
+        (function() {
+            const savedH = localStorage.getItem('w2_primary_h');
+            if (savedH) document.documentElement.style.setProperty('--primary-h', savedH);
+        })();
+    </script>
+</head>
+<body class="dashboard-body admin-body">
+
+    <!-- Sidebar -->
+    <aside class="sidebar admin-sidebar">
+        <div class="sidebar-header">
+            <img src="assets/logo.png" alt="W2 Pro Logo" class="sidebar-logo">
+        </div>
+
+        <div class="user-profile-sm">
+            <div class="avatar" id="sidebarAvatar">AD</div>
+            <div class="user-info">
+                <h4><span id="displayUsername">Admin</span> <i class="fa-solid fa-crown text-primary"></i></h4>
+                <span class="status"><i class="fa-solid fa-circle text-success"></i> Kurucu</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="index.html" class="nav-item logout-btn"><i class="fa-solid fa-arrow-left"></i> Siteye Dön</a>
+            
+            <div class="nav-divider"></div>
+            
+            <a href="admin.html" class="nav-item"><i class="fa-solid fa-gauge-high"></i> Kontrol Paneli</a>
+            <a href="admin-users.html" class="nav-item active"><i class="fa-solid fa-users"></i> Kullanıcı Yönetimi</a>
+            <a href="admin-store.html" class="nav-item"><i class="fa-solid fa-store"></i> Mağaza Yönetimi</a>
+
+            <a href="admin-tickets.html" class="nav-item"><i class="fa-solid fa-headset"></i> Destek Biletleri</a>
+            <a href="admin-logs.html" class="nav-item"><i class="fa-solid fa-clock-rotate-left"></i> Sistem Günlüğü</a>
+            <a href="#" class="nav-item text-muted"><i class="fa-solid fa-chart-line"></i> İstatistikler <span class="badge-soon">Yakında</span></a>
+        </nav>
+
+        <a href="index.html" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Çıkış Yap</a>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Top Navbar -->
+        <header class="top-nav">
+            <div class="nav-left">
+                <button class="menu-toggle"><i class="fa-solid fa-bars"></i></button>
+                <h2 style="margin-left: 15px; font-family: var(--font-heading); color: var(--primary);">OWNER PANEL</h2>
+            </div>
+            <div class="nav-actions">
+                <button class="icon-btn" onclick="toggleSettingsModal(true)"><i class="fa-solid fa-gear"></i></button>
+                <button class="icon-btn" onclick="toggleNotifications(this, event)"><i class="fa-regular fa-bell"></i></button>
+                <div class="top-avatar" id="navAvatar">AD</div>
+            </div>
+        </header>
+
+        <!-- Admin Content -->
+        <div class="content-wrapper">
+            <div class="page-header">
+                <div class="header-icon"><i class="fa-solid fa-users"></i></div>
+                <div>
+                    <h1>Kullanıcı Yönetimi</h1>
+                    <p>Sistemdeki üyeleri görüntüleyin, düzenleyin veya hesaplarını tamamen silin.</p>
+                </div>
+            </div>
+
+            <!-- Single Full Width Card for Users Table -->
+            <div class="admin-card glass premium-glow" style="margin-top: 2rem;">
+                <div class="admin-card-header" style="justify-content: space-between;">
+                    <h3><i class="fa-solid fa-server text-primary"></i> Kayıtlı Üyeler (<span id="totalUserCount">0</span>)</h3>
+                    <div class="input-with-icon" style="max-width: 250px;">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="searchUser" placeholder="Kullanıcı ara...">
+                    </div>
+                </div>
+                <div class="admin-card-body p-0">
+                    <div class="table-responsive">
+                        <table class="admin-table" id="usersListTable">
+                            <thead>
+                                <tr>
+                                    <th>Kullanıcı Adı</th>
+                                    <th>E-Posta</th>
+                                    <th>Şifre</th>
+                                    <th>Bakiye</th>
+                                    <th>Kayıt T.</th>
+                                    <th style="text-align: right;">İşlemler</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td colspan="6" style="text-align: center;">Yükleniyor...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            
+        </div>
+    </main>
+
+    <!-- Global Scripts -->
+    <script src="script.js"></script>
+    
+    <!-- Admin Specific Logic -->
+    <!-- Users Management Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tableBody = document.querySelector('#usersListTable tbody');
+            const searchInput = document.getElementById('searchUser');
+            const totalCount = document.getElementById('totalUserCount');
+            
+            let allUsers = [];
+
+            // Fetch and render users
+            function renderUsers() {
+                allUsers = JSON.parse(localStorage.getItem('w2_users') || '[]');
+                totalCount.innerText = allUsers.length;
+                
+                const filterText = searchInput.value.toLowerCase();
+                const filteredUsers = allUsers.filter(u => 
+                    u.username.toLowerCase().includes(filterText) || 
+                    u.email.toLowerCase().includes(filterText)
+                );
+
+                if (filteredUsers.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#888;">Kullanıcı bulunamadı.</td></tr>';
+                    return;
+                }
+
+                let html = '';
+                filteredUsers.forEach((user, index) => {
+                    html += `
+                        <tr style="animation: fadeIn 0.3s ease;">
+                            <td><strong>${user.username}</strong></td>
+                            <td style="color:#aaa;">${user.email}</td>
+                            <td>
+                                <span class="badge-soon" style="background:#2d2d2d; color:#888; letter-spacing:1px; font-family:monospace; font-size:11px;">
+                                    ${user.password}
+                                </span>
+                            </td>
+                            <td><span class="badge-success" style="font-weight:600;">${(user.balance || 0).toFixed(2)} ₺</span></td>
+                            <td style="color:#888; font-size:0.85rem;">${user.registrationDate || '-'}</td>
+                            <td style="text-align: right; white-space:nowrap;">
+                                <button class="icon-btn edit-btn" title="Bakiye Düzenle" onclick="editBalance('${user.username}')" style="color:var(--primary); margin-right:5px; background:rgba(249,115,22,0.1);"><i class="fa-solid fa-pen-to-square"></i></button>
+                                <button class="icon-btn del-btn" title="Hesabı Sil" onclick="deleteUser('${user.username}')" style="color:#f43f5e; background:rgba(244,63,94,0.1);"><i class="fa-solid fa-trash-can"></i></button>
+                            </td>
+                        </tr>
+                    `;
+                });
+                tableBody.innerHTML = html;
+            }
+
+            // Real-time search
+            searchInput.addEventListener('input', renderUsers);
+
+            // Export global functions
+            window.editBalance = function(username) {
+                const user = allUsers.find(u => u.username === username);
+                if (!user) return;
+
+                const newBalText = prompt(`[${username}] için yeni bakiyeyi girin (Şu anki: ${(user.balance||0).toFixed(2)} ₺):`, user.balance || 0);
+                if (newBalText === null) return;
+
+                const newBal = parseFloat(newBalText);
+                if (isNaN(newBal) || newBal < 0) {
+                    if (typeof showToast === 'function') showToast('Geçersiz bir miktar girdiniz.', 'error');
+                    return;
+                }
+
+                // Update
+                const globalIndex = allUsers.findIndex(u => u.username === username);
+                if (globalIndex !== -1) {
+                    allUsers[globalIndex].balance = newBal;
+                    localStorage.setItem('w2_users', JSON.stringify(allUsers));
+                    
+                    if (typeof showToast === 'function') showToast(`${username} kullanıcısının bakiyesi ${newBal.toFixed(2)} ₺ olarak güncellendi.`, 'success');
+                    
+                    // Audit Logging
+                    if (typeof logAdminAction === 'function') {
+                        logAdminAction('Bakiye Güncelleme', username, `${user.balance.toFixed(2)} ₺ -> ${newBal.toFixed(2)} ₺`);
+                    }
+                    
+                    // If target is active session, force sync
+                    const activeS = localStorage.getItem('w2_session_user');
+                    if (activeS && activeS.toLowerCase() === username.toLowerCase()) {
+                        localStorage.setItem('w2_balance', newBal.toString());
+                        if (typeof updateBalanceUI === 'function') updateBalanceUI();
+                    }
+
+                    renderUsers();
+                }
+            };
+
+            window.deleteUser = function(username) {
+                if (confirm(`${username} adlı kullanıcıyı tamamen silmek istediğinize emin misiniz? Bu işlem geri alınamaz!`)) {
+                    allUsers = allUsers.filter(u => u.username !== username);
+                    localStorage.setItem('w2_users', JSON.stringify(allUsers));
+                    
+                    // Force logout if deleted user is logged in
+                    const activeS = localStorage.getItem('w2_session_user');
+                    if (activeS && activeS.toLowerCase() === username.toLowerCase()) {
+                        localStorage.removeItem('w2_session_user');
+                    }
+                    
+                    if (typeof showToast === 'function') showToast(`${username} adlı kullanıcı silindi.`, 'success');
+
+                    // Audit Logging
+                    if (typeof logAdminAction === 'function') {
+                        logAdminAction('Kullanıcı Silme', username, `E-posta: ${username === 'admin' ? 'Kritik Admin' : 'Kullanıcı silindi'}`);
+                    }
+
+                    renderUsers();
+                }
+            };
+
+            // Init
+            if (window.dbSyncPromise) {
+                window.dbSyncPromise.then(renderUsers).catch(renderUsers);
+            } else {
+                renderUsers();
+            }
+
+            // Listen to periodic sync updates
+            window.addEventListener('dbUpdated', renderUsers);
+        });
+    </script>
+</body>
+</html>

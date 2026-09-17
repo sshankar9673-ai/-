@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>W2 Cheats - Secure Access</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Local CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        // Instant Theme Loader
+        (function() {
+            const savedH = localStorage.getItem('w2_primary_h');
+            if (savedH) document.documentElement.style.setProperty('--primary-h', savedH);
+        })();
+    </script>
+</head>
+<body>
+    <!-- Particle Background -->
+    <div id="particles"></div>
+
+    <div class="lang-selector">
+        <select id="langSelectIndex">
+            <option value="tr">Türkçe</option>
+            <option value="en">English</option>
+        </select>
+    </div>
+
+    <div class="login-container">
+        <!-- Brand Section -->
+        <div class="brand-section">
+            <img src="assets/logo.png" alt="W2 Pro Logo" class="main-logo">
+            <h1 class="brand-title" style="margin-bottom: 2rem;">
+                <span class="text-gradient" style="font-size: 1.2em; font-weight: 800; display: block; filter: drop-shadow(0 0 10px var(--primary-glow));">W2 CHEATS</span>
+                <span class="accent-text" style="color:var(--text-muted); font-size:0.35em; display:block; letter-spacing:8px; font-weight:500; margin-top:5px; opacity: 0.8;">CORPORATION</span>
+            </h1>
+            
+            <div class="mobile-hide">
+                <p class="brand-description" data-i18n="hero_desc">The ultimate gaming platform where legends are born and records are broken</p>
+                
+                <div class="badge-container">
+                    <span class="badge"><i class="fa-solid fa-bolt"></i> <span data-i18n="Lightning Fast">Lightning Fast</span></span>
+                    <span class="badge"><i class="fa-solid fa-shield-halved"></i> <span data-i18n="Ultra Secure">Ultra Secure</span></span>
+                    <span class="badge"><i class="fa-solid fa-gem"></i> <span data-i18n="Premium Quality">Premium Quality</span></span>
+                    <span class="badge"><i class="fa-solid fa-rocket"></i> <span data-i18n="Next Level">Next Level</span></span>
+                </div>
+                
+                <div class="stats-container">
+                    <div class="stat-item glass" style="padding: 1.5rem; border-radius: var(--radius-md); min-width: 120px;">
+                        <i class="fa-regular fa-user stat-icon"></i>
+                        <h3 class="text-gradient">70K+</h3>
+                        <p data-i18n="Active Players">Active Players</p>
+                    </div>
+                    <div class="stat-item glass" style="padding: 1.5rem; border-radius: var(--radius-md); min-width: 120px;">
+                        <i class="fa-solid fa-trophy stat-icon"></i>
+                        <h3 class="text-gradient">50K+</h3>
+                        <p data-i18n="Gift Keys">Gift Keys</p>
+                    </div>
+                    <div class="stat-item glass" style="padding: 1.5rem; border-radius: var(--radius-md); min-width: 120px;">
+                        <i class="fa-solid fa-bullseye stat-icon"></i>
+                        <h3 class="text-gradient">99.9%</h3>
+                        <p data-i18n="Uptime">Uptime</p>
+                    </div>
+                </div>
+
+                <!-- Scroll Indicator for Premium Feel -->
+                <div class="scroll-indicator" style="margin-top: 4rem; opacity: 0.6; animation: bounce 2s infinite;">
+                    <i class="fa-solid fa-chevron-down" style="font-size: 1.2rem; color: var(--text-muted);"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Auth Section -->
+        <div class="auth-section">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <h2><i class="fa-solid fa-shield"></i> <span data-i18n="Secure Access">Secure Access</span></h2>
+                    <p data-i18n="Sign in to access your premium gaming dashboard">Sign in to access your premium gaming dashboard</p>
+                </div>
+
+                <div class="auth-tabs">
+                    <button class="tab active" id="tabSignIn"><i class="fa-solid fa-right-to-bracket"></i> <span data-i18n="Sign In">Sign In</span></button>
+                    <button class="tab" id="tabSignUp"><i class="fa-solid fa-user-plus"></i> <span data-i18n="Sign Up">Sign Up</span></button>
+                </div>
+
+                <!-- SIGN IN FORM -->
+                <form id="loginForm" class="auth-form" action="javascript:void(0);">
+                    <div class="form-group">
+                        <label data-i18n="Username or Email">Username or Email</label>
+                        <div class="input-wrapper">
+                            <i class="fa-regular fa-user"></i>
+                            <input type="text" id="usernameInput" data-i18n="Enter username or email" placeholder="Enter username or email" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label data-i18n="Password">Password</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password" id="loginPassword" data-i18n="Enter your password" placeholder="Enter your password" required>
+                            <i class="fa-regular fa-eye-slash toggle-pw"></i>
+                        </div>
+                    </div>
+
+                    <div class="forgot-password">
+                        <a href="#" data-i18n="Forgot your password?">Forgot your password?</a>
+                    </div>
+
+                    <button type="submit" class="btn-primary">
+                        <i class="fa-solid fa-right-to-bracket"></i> <span data-i18n="Sign In">Sign In</span>
+                    </button>
+
+                    <div class="divider">
+                        <span data-i18n="Or continue with">Or continue with</span>
+                    </div>
+
+                    <button type="button" class="btn-google">
+                        <i class="fa-brands fa-google"></i> <span data-i18n="Continue with Google">Continue with Google</span>
+                    </button>
+                </form>
+
+                <!-- SIGN UP FORM -->
+                <form id="signupForm" class="auth-form" style="display: none;" action="javascript:void(0);">
+                    <div class="form-group" style="margin-bottom: 1.2rem;">
+                        <label data-i18n="Username">Username</label>
+                        <div class="input-wrapper">
+                            <i class="fa-regular fa-user"></i>
+                            <input type="text" id="signupUsername" data-i18n="Choose a username" placeholder="Choose a username" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 1.2rem;">
+                        <label data-i18n="Email Address">Email Address</label>
+                        <div class="input-wrapper">
+                            <i class="fa-regular fa-envelope"></i>
+                            <input type="email" id="signupEmail" data-i18n="Enter your email" placeholder="Enter your email" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 1.2rem;">
+                        <label data-i18n="Password">Password</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password" id="signupPassword" data-i18n="Create a strong password" placeholder="Create a strong password" required>
+                            <i class="fa-regular fa-eye-slash toggle-pw"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 1.2rem;">
+                        <label data-i18n="Confirm Password">Confirm Password</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password" id="signupConfirmPassword" data-i18n="Confirm your password" placeholder="Confirm your password" required>
+                            <i class="fa-regular fa-eye-slash toggle-pw"></i>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary" style="margin-top: 1.5rem;">
+                        <i class="fa-solid fa-user-plus"></i> <span data-i18n="Create Account">Create Account</span>
+                    </button>
+
+                    <div class="divider">
+                        <span data-i18n="Or continue with">Or continue with</span>
+                    </div>
+
+                    <button type="button" class="btn-google">
+                        <i class="fa-brands fa-google"></i> <span data-i18n="Continue with Google">Continue with Google</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Extra Content for Professional Look -->
+    <div class="landing-content">
+        <!-- Features Section -->
+        <section class="features-grid-container">
+            <h2 class="section-title-alt" data-i18n="Why Choose W2?">Neden W2 Cheats?</h2>
+            <div class="features-grid">
+                <div class="feature-card-alt glass">
+                    <i class="fa-solid fa-shield-virus"></i>
+                    <h3 data-i18n="Anti-Cheat Protection">Anti-Cheat Koruması</h3>
+                    <p data-i18n="Our advanced bypass systems ensure you stay undetected.">Gelişmiş bypass sistemlerimiz ile her zaman güvendesiniz.</p>
+                </div>
+                <div class="feature-card-alt glass">
+                    <i class="fa-solid fa-bolt"></i>
+                    <h3 data-i18n="Instant Delivery">Anında Teslimat</h3>
+                    <p data-i18n="Get your keys immediately after your payment is confirmed.">Ödemeniz onaylandığı an anahtarınız teslim edilir.</p>
+                </div>
+                <div class="feature-card-alt glass">
+                    <i class="fa-solid fa-headset"></i>
+                    <h3 data-i18n="24/7 Priority Support">7/24 Öncelikli Destek</h3>
+                    <p data-i18n="Our team is always here to help you with any issues.">Ekibimiz her türlü sorununuzda yanınızdadır.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic Stats Section -->
+        <section class="stats-showcase">
+            <div class="stat-box">
+                <span class="stat-num counter" data-target="50000">50.000+</span>
+                <span class="stat-label" data-i18n="Satisfied Clients">Mutlu Müşteri</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-num counter" data-target="150">150+</span>
+                <span class="stat-label" data-i18n="Premium Cheats">Premium Hile</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-num counter" data-target="99">99.9%</span>
+                <span class="stat-label" data-i18n="Uptime Percentage">Uptime Kapasitesi</span>
+            </div>
+        </section>
+
+        <!-- Trust & Security -->
+        <section class="trust-badges">
+            <div class="badge-item"><i class="fa-brands fa-discord"></i> <span>Discord Community</span></div>
+            <div class="badge-item"><i class="fa-solid fa-lock"></i> <span>SSL Secure</span></div>
+            <div class="badge-item"><i class="fa-brands fa-stripe"></i> <span>Verified Payments</span></div>
+        </section>
+        
+    <!-- Social Proof Section -->
+    <section class="social-proof-section" style="padding: 6rem 2rem; background: rgba(0,0,0,0.3); border-top: 1px solid var(--glass-border);">
+        <div class="container" style="max-width: 72px; margin: 0 auto; text-align: center;">
+            <h2 data-i18n="Oyuncular Tarafından Güveniliyor" style="font-size: 2.5rem; margin-bottom: 3rem;">
+                <span class="text-gradient">70,000+</span> <span data-i18n="Oyuncular Tarafından Güveniliyor">Oyuncular Tarafından Güveniliyor</span>
+            </h2>
+            
+            <div class="testimonials-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <!-- Card 1 -->
+                <div class="testimonial-card glass" style="padding: 2.5rem; border-radius: var(--radius-lg); text-align: left; position: relative; overflow: hidden;">
+                    <div class="q-icon" style="position: absolute; right: 20px; top: 20px; font-size: 5rem; color: var(--primary-glow); opacity: 0.1;"><i class="fa-solid fa-quote-right"></i></div>
+                    <div class="stars" style="color: #fbbf24; margin-bottom: 1rem;">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p style="color: var(--text-main); font-style: italic; margin-bottom: 2rem; line-height: 1.6; font-size: 1.1rem; border-left: 3px solid var(--primary); padding-left: 1.2rem;" data-i18n="Harika bir platform. Bypass sistemi gerçekten çok güvenli ve hızlı.">"Harika bir platform. Bypass sistemi gerçekten çok güvenli ve hızlı."</p>
+                    <div class="user-meta" style="display: flex; align-items: center; gap: 15px;">
+                        <div style="width: 50px; height: 50px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; font-weight: 800; color: white;">A1</div>
+                        <div>
+                            <h4 style="margin: 0;">AlexTheKing</h4>
+                            <p style="margin: 0; font-size: 0.8rem; color: var(--text-muted);" data-i18n="Pro Oyuncu">Pro Oyuncu</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="testimonial-card glass" style="padding: 2.5rem; border-radius: var(--radius-lg); text-align: left; position: relative; overflow: hidden;">
+                    <div class="q-icon" style="position: absolute; right: 20px; top: 20px; font-size: 5rem; color: var(--primary-glow); opacity: 0.1;"><i class="fa-solid fa-quote-right"></i></div>
+                    <div class="stars" style="color: #fbbf24; margin-bottom: 1rem;">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p style="color: var(--text-main); font-style: italic; margin-bottom: 2rem; line-height: 1.6; font-size: 1.1rem; border-left: 3px solid var(--primary); padding-left: 1.2rem;" data-i18n="ZEROOXX723 hileleri gerçekten çok kaliteli. 2 aydır ban yemedim.">"ZEROOXX723 hileleri gerçekten çok kaliteli. 2 aydır ban yemedim."</p>
+                    <div class="user-meta" style="display: flex; align-items: center; gap: 15px;">
+                        <div style="width: 50px; height: 50px; border-radius: 50%; background: #a855f7; display: flex; align-items: center; justify-content: center; font-weight: 800; color: white;">M</div>
+                        <div>
+                            <h4 style="margin: 0;">MasterMind</h4>
+                            <p style="margin: 0; font-size: 0.8rem; color: var(--text-muted);" data-i18n="Elmas Seviye">Elmas Seviye</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="testimonial-card glass" style="padding: 2.5rem; border-radius: var(--radius-lg); text-align: left; position: relative; overflow: hidden;">
+                    <div class="q-icon" style="position: absolute; right: 20px; top: 20px; font-size: 5rem; color: var(--primary-glow); opacity: 0.1;"><i class="fa-solid fa-quote-right"></i></div>
+                    <div class="stars" style="color: #fbbf24; margin-bottom: 1rem;">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                    </div>
+                    <p style="color: var(--text-main); font-style: italic; margin-bottom: 2rem; line-height: 1.6; font-size: 1.1rem; border-left: 3px solid var(--primary); padding-left: 1.2rem;" data-i18n="W2 Cheat ile oyun zevkim iki katına çıktı. Teşekkürler!">"W2 Cheat ile oyun zevkim iki katına çıktı. Teşekkürler!"</p>
+                    <div class="user-meta" style="display: flex; align-items: center; gap: 15px;">
+                        <div style="width: 50px; height: 50px; border-radius: 50%; background: #22c55e; display: flex; align-items: center; justify-content: center; font-weight: 800; color: white;">GS</div>
+                        <div>
+                            <h4 style="margin: 0;">GamerSlay</h4>
+                            <p style="margin: 0; font-size: 0.8rem; color: var(--text-muted);" data-i18n="Top Rank">Top Rank</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="padding: 4rem 2rem; text-align: center; border-top: 1px solid var(--glass-border); background: #050505;">
+        <div class="footer-logo" style="margin-bottom: 2rem;">
+            <img src="assets/logo.png" alt="W2 Logo" style="width: 60px; filter: grayscale(1) opacity(0.5);">
+            <h2 class="text-gradient" style="font-size: 1.2rem; margin-top: 10px;">W2 CHEATS</h2>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">&copy; 2026 W2 Cheats Corporation. <span data-i18n="Tüm hakları saklıdır.">Tüm hakları saklıdır.</span></p>
+        <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 5px;">Powered by <span class="accent-text">ZEROOXX723</span></p>
+    </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Günlüğü - W2 Cheat Admin</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="admin.css">
+     <style>
+        .log-table {
+            border-collapse: separate;
+            border-spacing: 0 8px;
+            width: 100%;
+        }
+        .log-table tr {
+            background: rgba(255,255,255,0.02);
+            border-radius: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: slideInLogs 0.5s ease backwards;
+            border-left: 3px solid transparent;
+        }
+        @keyframes slideInLogs {
+            from { opacity: 0; transform: translateY(15px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .log-table tr:hover {
+            background: rgba(255,255,255,0.05);
+            transform: translateX(8px);
+            border-left-color: var(--primary);
+            box-shadow: -10px 0 20px rgba(var(--primary-h), var(--primary-s), var(--primary-l), 0.1);
+        }
+        
+        /* Severity Border Colors */
+        .row-severity-danger { border-left-color: #ef4444 !important; background: rgba(239, 68, 68, 0.03) !important; }
+        .row-severity-warning { border-left-color: #f59e0b !important; background: rgba(245, 158, 11, 0.03) !important; }
+        .row-severity-success { border-left-color: #10b981 !important; background: rgba(16, 185, 129, 0.03) !important; }
+
+        .log-table td, .log-table th {
+            padding: 1.2rem;
+            text-align: left;
+            border: none;
+        }
+        .log-table th {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .action-badge {
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .badge-update { background: rgba(249, 115, 22, 0.15); color: #f97316; border: 1px solid rgba(249,115,22,0.3); }
+        .badge-delete { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239,68,68,0.3); }
+        .badge-create { background: rgba(34, 197, 94, 0.15); color: #22c55e; border: 1px solid rgba(34,197,94,0.3); }
+        
+        .badge-status {
+            padding: 5px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 800; display: flex; align-items: center; gap: 6px;
+        }
+        .badge-status.online { background: rgba(34, 197, 94, 0.1); color: #22c55e; border: 1px solid rgba(34,197,94,0.2); }
+        .badge-status.online i { font-size: 0.5rem; animation: pulse-ring 2s infinite; }
+
+        .log-detail {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            max-width: 300px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* Ultimate Activity Pulse */
+        .pulse-dot {
+            width: 8px; height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+            position: relative;
+            display: inline-block;
+            margin-right: 10px;
+        }
+        .pulse-dot::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: pulse-ring 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(.33); opacity: 1; }
+            80%, 100% { transform: scale(3); opacity: 0; }
+        }
+    </style>
+</head>
+<body class="dashboard-body admin-body">
+
+    <!-- Sidebar Sync -->
+    <aside class="sidebar admin-sidebar">
+        <div class="sidebar-header">
+            <img src="assets/logo.png" alt="W2 Pro Logo" class="sidebar-logo">
+        </div>
+
+        <div class="user-profile-sm">
+            <div class="avatar" id="sidebarAvatar">AD</div>
+            <div class="user-info">
+                <h4><span id="displayUsername">Admin</span> <i class="fa-solid fa-crown text-primary"></i></h4>
+                <span class="status"><i class="fa-solid fa-circle text-success" style="animation: pulse-ring 2s infinite;"></i> Kurucu</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="index.html" class="nav-item logout-btn"><i class="fa-solid fa-arrow-left"></i> Siteye Dön</a>
+            
+            <div class="nav-divider"></div>
+            
+            <a href="admin.html" class="nav-item"><i class="fa-solid fa-gauge-high"></i> Kontrol Paneli</a>
+            <a href="admin-users.html" class="nav-item"><i class="fa-solid fa-users"></i> Kullanıcı Yönetimi</a>
+            <a href="admin-store.html" class="nav-item"><i class="fa-solid fa-store"></i> Mağaza Yönetimi</a>
+            <a href="admin-tickets.html" class="nav-item"><i class="fa-solid fa-headset"></i> Destek Biletleri</a>
+            <a href="admin-logs.html" class="nav-item active"><i class="fa-solid fa-clock-rotate-left"></i> Sistem Günlüğü</a>
+            <a href="#" class="nav-item text-muted"><i class="fa-solid fa-chart-line"></i> İstatistikler <span class="badge-soon">Yakında</span></a>
+        </nav>
+
+        <a href="index.html" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Çıkış Yap</a>
+    </aside>
+
+    <main class="main-content">
+        <!-- Top Navbar Sync -->
+        <header class="top-nav">
+            <div class="nav-left">
+                <button class="menu-toggle"><i class="fa-solid fa-bars"></i></button>
+                <h2 style="margin-left: 15px; font-family: var(--font-heading); color: var(--primary);">OWNER PANEL</h2>
+            </div>
+            <div class="nav-actions">
+                <button class="icon-btn" onclick="toggleSettingsModal(true)"><i class="fa-solid fa-gear"></i></button>
+                <button class="icon-btn" onclick="toggleNotifications(this, event)"><i class="fa-regular fa-bell"></i></button>
+                <div class="top-avatar" id="navAvatar">AD</div>
+            </div>
+        </header>
+
+        <div class="content-wrapper">
+            <div class="page-header" style="justify-content: space-between; display: flex; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <div class="header-icon" style="background: linear-gradient(135deg, var(--primary) 0%, #0369a1 100%);"><i class="fa-solid fa-tower-broadcast"></i></div>
+                    <div>
+                        <h1>Müştemilat Kontrol Merkezi</h1>
+                        <p>Gerçek zamanlı işlem takibi, yönetici aktivite analizi ve sistem güvenliği.</p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                     <span class="badge-status online"><i class="fa-solid fa-circle"></i> SİSTEM AKTİF</span>
+                </div>
+            </div>
+
+            <!-- Advanced Monitoring Grid -->
+            <div class="admin-grid-layout" style="margin-top: 2rem;">
+                <!-- Activity Trends -->
+                <div class="admin-card glass premium-glow">
+                    <div class="admin-card-header">
+                        <h3><i class="fa-solid fa-chart-line text-primary"></i> Aktivite Eğilimleri (24s)</h3>
+                    </div>
+                    <div class="admin-card-body" style="height: 180px; display: flex; align-items: flex-end; justify-content: space-between; padding: 1.5rem 2rem;">
+                        <!-- Mock Bar Chart -->
+                        <div class="chart-bar" style="height: 30%; width: 15px; background: rgba(255,255,255,0.05); border-radius: 4px;"></div>
+                        <div class="chart-bar" style="height: 45%; width: 15px; background: rgba(255,255,255,0.1); border-radius: 4px;"></div>
+                        <div class="chart-bar" style="height: 20%; width: 15px; background: rgba(255,255,255,0.05); border-radius: 4px;"></div>
+                        <div class="chart-bar" style="height: 60%; width: 15px; background: var(--primary-glow); border-radius: 4px;"></div>
+                        <div class="chart-bar" style="height: 80%; width: 15px; background: var(--primary); border-radius: 4px; box-shadow: 0 0 10px var(--primary-glow);"></div>
+                        <div class="chart-bar" style="height: 50%; width: 15px; background: var(--primary-glow); border-radius: 4px;"></div>
+                        <div class="chart-bar" style="height: 35%; width: 15px; background: rgba(255,255,255,0.1); border-radius: 4px;"></div>
+                        <div class="chart-bar" style="height: 40%; width: 15px; background: rgba(255,255,255,0.05); border-radius: 4px;"></div>
+                        <div class="chart-bar" style="height: 90%; width: 15px; background: var(--primary); border-radius: 4px; box-shadow: 0 0 10px var(--primary-glow);"></div>
+                        <div class="chart-bar" style="height: 25%; width: 15px; background: rgba(255,255,255,0.05); border-radius: 4px;"></div>
+                    </div>
+                </div>
+
+                <!-- Admin Heatmap -->
+                <div class="admin-card glass premium-glow">
+                    <div class="admin-card-header">
+                        <h3><i class="fa-solid fa-fire text-secondary" style="color:#fb923c;"></i> Yönetici Aktivitesi</h3>
+                    </div>
+                    <div class="admin-card-body" style="display:flex; flex-direction:column; gap:12px; justify-content: center;">
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <span style="font-size:0.85rem; color:#aaa;">savas-admin</span>
+                            <div style="flex:1; height:6px; background:rgba(255,255,255,0.05); margin: 0 15px; border-radius:3px;">
+                                <div style="width:75%; height:100%; background:var(--primary); border-radius:3px; box-shadow: 0 0 5px var(--primary-glow);"></div>
+                            </div>
+                            <span style="font-size:0.85rem; font-weight:600;">%75</span>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <span style="font-size:0.85rem; color:#aaa;">zerooxx723-admin</span>
+                            <div style="flex:1; height:6px; background:rgba(255,255,255,0.05); margin: 0 15px; border-radius:3px;">
+                                <div style="width:45%; height:100%; background:var(--primary-glow); border-radius:3px;"></div>
+                            </div>
+                            <span style="font-size:0.85rem; font-weight:600;">%45</span>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <span style="font-size:0.85rem; color:#aaa;">b0xr-admin</span>
+                            <div style="flex:1; height:6px; background:rgba(255,255,255,0.05); margin: 0 15px; border-radius:3px;">
+                                <div style="width:20%; height:100%; background:rgba(255,255,255,0.2); border-radius:3px;"></div>
+                            </div>
+                            <span style="font-size:0.85rem; font-weight:600;">%20</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ultimate Stats List -->
+            <div class="admin-stats-grid" style="margin-top:2rem;">
+                <div class="admin-stat-card glass premium-glow">
+                    <div class="stat-icon-wrapper"><i class="fa-solid fa-bolt"></i></div>
+                    <div class="stat-details">
+                        <span class="stat-title">Toplam İşlem</span>
+                        <h2 class="stat-value" id="totalLogCount">0</h2>
+                    </div>
+                </div>
+                <div class="admin-stat-card glass premium-glow">
+                    <div class="stat-icon-wrapper"><i class="fa-solid fa-microchip"></i></div>
+                    <div class="stat-details">
+                        <div style="display:flex; align-items:center;">
+                            <div class="pulse-dot"></div>
+                            <span class="stat-title">Bugünkü İşlem Kapasitesi</span>
+                        </div>
+                        <h2 class="stat-value" id="todayLogCount">0</h2>
+                    </div>
+                </div>
+                <div class="admin-stat-card glass premium-glow">
+                    <div class="stat-icon-wrapper"><i class="fa-solid fa-shield-virus"></i></div>
+                    <div class="stat-details">
+                        <span class="stat-title">Güvenlik Durumu</span>
+                        <h2 class="stat-value" style="color:#22c55e;">OPTIMAL</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin-card glass premium-glow" style="margin-top: 2rem;">
+                <div class="admin-card-header" style="flex-direction: column; align-items: flex-start; gap: 1.5rem; padding: 2rem;">
+                    <div style="display:flex; justify-content:space-between; width:100%; align-items:center; flex-wrap: wrap; gap: 1rem;">
+                        <h3><i class="fa-solid fa-history text-primary"></i> İşlem Kayıtları</h3>
+                        <div style="display:flex; gap: 0.8rem;">
+                            <button class="btn-primary" onclick="exportLogs()" style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); padding: 0.6rem 1.2rem;"><i class="fa-solid fa-download"></i> İndir</button>
+                            <button class="btn-primary" onclick="renderLogs()" style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); padding: 0.6rem 1.2rem;"><i class="fa-solid fa-rotate"></i></button>
+                            <button class="btn-primary" onclick="clearLogs()" style="background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.2); color:#ef4444; padding: 0.6rem 1.2rem;"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </div>
+
+                    <div style="width: 100%; display: flex; gap: 1rem; flex-wrap: wrap; align-items:center;">
+                        <div class="input-with-icon" style="flex: 1; min-width: 250px; margin:0;">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" id="logSearch" placeholder="Filtrele: Admin, işlem veya bakiye...">
+                        </div>
+                        <div class="filter-bar" style="margin: 0;" id="logFilterBar">
+                            <button class="filter-tab active" data-filter="all">Hepsi</button>
+                            <button class="filter-tab" data-filter="Bakiye">Bakiye</button>
+                            <button class="filter-tab" data-filter="Üretim">Üretim</button>
+                            <button class="filter-tab" data-filter="Haber">Haber</button>
+                            <button class="filter-tab" data-filter="Silme">Silme</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="admin-card-body p-0">
+                    <div class="table-scroll">
+                    <table class="log-table">
+                        <thead>
+                            <tr>
+                                <th>Admin</th>
+                                <th>İşlem</th>
+                                <th>Hedef</th>
+                                <th>Detay</th>
+                                <th>Tarih</th>
+                            </tr>
+                        </thead>
+                        <tbody id="logsListBody">
+                            <!-- Logs injected here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const listBody = document.getElementById('logsListBody');
+            const totalCount = document.getElementById('totalLogCount');
+            const todayCount = document.getElementById('todayLogCount');
+            const searchInput = document.getElementById('logSearch');
+            const filterTabs = document.querySelectorAll('.filter-tab');
+            
+            let currentFilter = 'all';
+
+            window.renderLogs = () => {
+                const logs = JSON.parse(localStorage.getItem('w2_audit_logs') || '[]').reverse();
+                totalCount.innerText = logs.length;
+
+                // Today's log count
+                const today = new Date().toLocaleDateString('tr-TR');
+                const tCount = logs.filter(l => l.time.includes(today)).length;
+                todayCount.innerText = tCount;
+
+                const searchText = searchInput.value.toLowerCase();
+                
+                const filtered = logs.filter(log => {
+                    const matchesSearch = log.admin.toLowerCase().includes(searchText) || 
+                                          log.action.toLowerCase().includes(searchText) || 
+                                          log.target.toLowerCase().includes(searchText) ||
+                                          (log.detail && log.detail.toLowerCase().includes(searchText));
+                    
+                    const matchesFilter = currentFilter === 'all' || log.action.includes(currentFilter);
+                    
+                    return matchesSearch && matchesFilter;
+                });
+
+                if (filtered.length === 0) {
+                    listBody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding: 4rem; color:#666;">' + 
+                        (logs.length === 0 ? 'Henüz herhangi bir işlem kaydı bulunmuyor.' : 'Arama kriterlerine uygun işlem bulunamadı.') + 
+                        '</td></tr>';
+                    return;
+                }
+
+                listBody.innerHTML = filtered.map(log => {
+                    let icon = 'fa-circle-info';
+                    let colorClass = 'badge-create';
+                    let severityClass = '';
+                    
+                    if(log.action.includes('Silme') || log.action.includes('Sıfırlama')) { 
+                        icon = 'fa-trash-can'; 
+                        colorClass = 'badge-delete';
+                        severityClass = 'row-severity-danger';
+                    }
+                    else if(log.action.includes('Güncelleme') || log.action.includes('Bakiye')) { 
+                        icon = 'fa-pen-to-square'; 
+                        colorClass = 'badge-update';
+                        severityClass = 'row-severity-warning';
+                    }
+                    else if(log.action.includes('Haber') || log.action.includes('Ekleme') || log.action.includes('Üretim')) { 
+                        icon = 'fa-plus'; 
+                        colorClass = 'badge-create';
+                    }
+
+                    return `
+                        <tr class="${severityClass}">
+                            <td>
+                                <div style="display:flex; align-items:center; gap:12px;">
+                                    <div style="width:32px; height:32px; background:hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.1); border: 1px solid var(--primary-glow); color: var(--primary); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:0.75rem; font-weight:700;">${log.admin.substring(0,2).toUpperCase()}</div>
+                                    <strong style="font-size:0.9rem;">${log.admin}</strong>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="action-badge ${colorClass}">
+                                    <i class="fa-solid ${icon}"></i> ${log.action}
+                                </span>
+                            </td>
+                            <td><span style="color:var(--primary); font-weight:600; font-size:0.9rem;">${log.target}</span></td>
+                            <td><span class="log-detail" title="${log.detail || '-'}">${log.detail || '-'}</span></td>
+                            <td>
+                                <div style="display:flex; flex-direction:column;">
+                                    <span style="font-size:0.85rem; color:#fff; font-weight:500;">${log.time.split(' ')[1] || log.time}</span>
+                                    <span style="font-size:0.7rem; color:#64748b; margin-top:2px;">${log.time.split(' ')[0]}</span>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+            };
+
+            window.exportLogs = () => {
+                const logs = JSON.parse(localStorage.getItem('w2_audit_logs') || '[]');
+                if (logs.length === 0) {
+                    showToast('İndirilecek kayıt bulunamadı.', 'error');
+                    return;
+                }
+                
+                let text = "W2 CHEAT SYSTEM AUDIT LOGS\n";
+                text += "============================\n\n";
+                logs.reverse().forEach(l => {
+                    text += `[${l.time}] ADMIN: ${l.admin} | ACTION: ${l.action} | TARGET: ${l.target} | DETAIL: ${l.detail || '-'}\n`;
+                });
+                
+                const blob = new Blob([text], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `w2_audit_logs_${new Date().toISOString().split('T')[0]}.txt`;
+                a.click();
+                showToast('Günlük dosyası indiriliyor...', 'success');
+            };
+
+            window.clearLogs = () => {
+                if(confirm('Tüm sistem günlüğünü temizlemek istediğinize emin misiniz?')) {
+                    localStorage.setItem('w2_audit_logs', '[]');
+                    renderLogs();
+                    showToast('Sistem günlüğü temizlendi.', 'success');
+                }
+            };
+
+            searchInput.addEventListener('input', renderLogs);
+            
+            filterTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    filterTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    currentFilter = tab.getAttribute('data-filter');
+                    renderLogs();
+                });
+            });
+
+            renderLogs();
+            window.addEventListener('storage', (e) => {
+                if (e.key === 'w2_audit_logs') renderLogs();
+            });
+        });
+    </script>
+
+</body>
+</html>

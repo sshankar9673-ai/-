@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mağaza - W2 CHEATS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="store.css">
+    <link rel="stylesheet" href="games.css">
+    <link rel="stylesheet" href="support.css">
+</head>
+<body class="dashboard-body">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <img src="assets/logo.png" alt="W2 Pro Logo" class="sidebar-logo">
+        </div>
+
+        <div class="user-profile-sm">
+            <div class="avatar" id="sidebarAvatar">SA</div>
+            <div class="user-info">
+                <h4><span id="displayUsername">Misafir</span> <i class="fa-solid fa-crown text-primary"></i></h4>
+                <span class="status"><i class="fa-solid fa-circle text-success"></i> Çevrimiçi • Kullanıcı</span>
+            </div>
+        </div>
+
+
+
+        <nav class="sidebar-nav">
+            <a href="profile.html" class="nav-item" data-i18n="Profil"><i class="fa-regular fa-user"></i> Profil</a>
+            
+            <div class="nav-dropdown">
+                <a href="#" class="nav-item nav-dropdown-toggle" data-i18n="Tarih"><i class="fa-solid fa-clock-rotate-left"></i> Tarih <i class="fa-solid fa-chevron-right ms-auto dropdown-icon"></i></a>
+                <div class="nav-submenu">
+                    <a href="history.html?type=payments" class="nav-sub-item" data-i18n="Ödeme Geçmişi"><i class="fa-regular fa-credit-card"></i> Ödeme Geçmişi</a>
+                    <a href="history.html?type=purchases" class="nav-sub-item" data-i18n="Satın Alma Geçmişi"><i class="fa-solid fa-cart-shopping"></i> Satın Alma Geçmişi</a>
+                    <a href="history.html?type=refunds" class="nav-sub-item" data-i18n="Para İadesi Geçmişi"><i class="fa-solid fa-money-bill-transfer"></i> Para İadesi Geçmişi</a>
+                </div>
+            </div>
+
+
+            <a href="store.html" class="nav-item" data-i18n="Mağaza"><i class="fa-solid fa-bag-shopping"></i> Mağaza</a>
+            <a href="support.html" class="nav-item active" data-i18n="Destek"><i class="fa-solid fa-headset"></i> Destek Merkezi</a>
+            <!-- Dynamic Purchased Links Section -->
+            <div id="dynamicLinksContainer"></div>
+            
+            <div class="nav-divider"></div>
+            
+            <a href="https://chat.whatsapp.com/KX3XeFDc5KX0pMtUEO3EoA?mode=ems_copy_t" target="_blank" class="nav-item text-muted" data-i18n="WhatsApp Grubu"><i class="fa-brands fa-whatsapp"></i> WhatsApp Grubu <i class="fa-solid fa-arrow-up-right-from-square ms-auto"></i></a>
+            <a href="#" class="nav-item text-muted" data-i18n="Discord Sunucusu"><i class="fa-brands fa-discord"></i> Discord Sunucusu <i class="fa-solid fa-arrow-up-right-from-square ms-auto"></i></a>
+        </nav>
+
+        <a href="index.html" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Dışarı çıkmak</a>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Top Navbar -->
+        <header class="top-nav">
+            <div class="nav-left">
+                <button class="menu-toggle"><i class="fa-solid fa-bars"></i></button>
+            </div>
+            <div class="nav-actions">
+
+                <button class="action-btn active-orange" id="btnDailyBonus"><i class="fa-solid fa-gift"></i> Günlük Bonus</button>
+                <button class="action-btn border-orange"><i class="fa-solid fa-ticket"></i> Promosyon Kodu</button>
+
+                <button class="action-btn transparent active"><i class="fa-solid fa-lock"></i> Mağaza</button>
+                
+                <button class="icon-btn" onclick="toggleSettingsModal(true)"><i class="fa-solid fa-gear"></i></button>
+                
+                <button class="icon-btn" onclick="toggleNewsModal(true)"><i class="fa-regular fa-envelope"></i></button>
+                <button class="icon-btn" onclick="toggleNotifications(this, event)"><i class="fa-regular fa-bell"></i></button>
+                
+                <div class="cart-trigger" id="cartTrigger">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </div>
+                <div class="balance-badge">
+                    <i class="fa-solid fa-bolt"></i> <span id="userBalanceDisplay">0.00 ₺</span> <i class="fa-solid fa-star"></i>
+                </div>
+                <div class="top-avatar" id="navAvatar">SA</div>
+            </div>
+        </header>
+
+        <!-- Store Content -->
+        <div class="content-wrapper">
+            <div class="page-header" style="justify-content: space-between; display: flex; align-items: center; flex-wrap: wrap; margin-bottom: 3rem;">
+                <div style="display: flex; gap: 1.5rem; align-items: center;">
+                    <div class="header-icon" style="background: linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%); color:white; border:none; box-shadow: 0 8px 20px rgba(14, 165, 233, 0.4);"><i class="fa-solid fa-headset"></i></div>
+                    <div>
+                        <h1 style="font-size: 2.2rem; font-weight: 800; letter-spacing: -0.5px;">Destek Merkezi</h1>
+                        <p style="font-size: 1.05rem; opacity: 0.8;">Sorunlarınızı çözmek için buradayız. Uzman ekibimiz size yardımcı olmaya hazır.</p>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="openNewTicketModal()" style="padding: 1rem 2rem; background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); border: none; font-size: 1rem;"><i class="fa-solid fa-plus-circle"></i> Yeni Destek Talebi</button>
+            </div>
+
+            <!-- Support Stats Grid -->
+            <div class="support-stats-grid">
+                <div class="stat-card" style="animation-delay: 0.1s;">
+                    <div class="stat-icon" style="background: rgba(34, 197, 94, 0.1); color: #22c55e;"><i class="fa-solid fa-bolt"></i></div>
+                    <div class="stat-info">
+                        <h3>< 15 Dakika</h3>
+                        <p>Ort. Yanıt Süresi</p>
+                    </div>
+                </div>
+                <div class="stat-card" style="animation-delay: 0.2s;">
+                    <div class="stat-icon" style="background: rgba(14, 165, 233, 0.1); color: #0ea5e9;"><i class="fa-solid fa-user-check"></i></div>
+                    <div class="stat-info">
+                        <h3>7/24 Aktif</h3>
+                        <p>Destek Ekibimiz</p>
+                    </div>
+                </div>
+                <div class="stat-card" style="animation-delay: 0.3s;">
+                    <div class="stat-icon" style="background: rgba(249, 115, 22, 0.1); color: #f97316;"><i class="fa-solid fa-shield-halved"></i></div>
+                    <div class="stat-info">
+                        <h3>%100 Güvenli</h3>
+                        <p>Uçtan Uca Şifreli</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-card glass" style="margin-top: 0; border: 1px solid rgba(255,255,255,0.05);">
+                <div class="card-header">
+                    <div class="header-icon-sm" style="background:var(--primary); color:black;"><i class="fa-solid fa-ticket"></i></div>
+                    <div class="header-text">
+                        <h3>Destek Taleplerim</h3>
+                        <p>Oluşturduğunuz tüm biletlerin listesi ve güncel durumları.</p>
+                    </div>
+                </div>
+                
+                <div style="margin-top:20px;">
+                    <div class="table-responsive">
+                        <table class="history-table" id="ticketsTable">
+                            <thead>
+                                <tr>
+                                    <th>Bilet ID</th>
+                                    <th>Konu</th>
+                                    <th>Kategori</th>
+                                    <th>Tarih</th>
+                                    <th>Durum</th>
+                                    <th>İşlemler</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td colspan="6" style="text-align:center;">Yükleniyor...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- New Ticket Modal -->
+            <div id="newTicketModal" class="modal-overlay" style="display:none; align-items:center; justify-content:center; position:fixed; inset:0; z-index:9999;">
+                <div class="new-ticket-modal" style="width:100%; max-width:550px; margin:20px; animation: scaleIn 0.3s ease;">
+                    <div class="card-header" style="justify-content: space-between; margin-bottom: 25px;">
+                        <div style="display:flex; align-items:center;">
+                            <div class="header-icon-sm" style="background: linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%); color:white;"><i class="fa-solid fa-pen-nib"></i></div>
+                            <h3 style="margin-left:15px; font-weight:700; font-size: 1.25rem;">Yeni Destek Talebi</h3>
+                        </div>
+                        <button onclick="closeNewTicketModal()" class="close-modal-btn"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+                    
+                    <form id="newTicketForm">
+                        <div class="form-section">
+                            <label>Konu Başlığı</label>
+                            <div class="input-group">
+                                <i class="fa-solid fa-heading"></i>
+                                <input type="text" id="ticketSubject" placeholder="Sorununuzu kısaca özetleyin..." required>
+                            </div>
+                        </div>
+                        <div class="form-section">
+                            <label>Kategori</label>
+                            <div class="input-group">
+                                <i class="fa-solid fa-list-ul"></i>
+                                <select id="ticketCategory" required>
+                                    <option value="" disabled selected>Kategori seçin...</option>
+                                    <option value="Teknik Destek">Teknik Destek</option>
+                                    <option value="Ödeme Bildirimi">Ödeme Bildirimi</option>
+                                    <option value="Lisans & HWID">Lisans & HWID Sorunu</option>
+                                    <option value="Diğer">Diğer</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-section">
+                            <label>Mesajınız</label>
+                            <textarea id="ticketMessage" class="modal-textarea" rows="5" placeholder="Lütfen sorununuzu detaylı bir şekilde açıklayın. Varsa hata kodlarını ekleyin..." required></textarea>
+                        </div>
+                        <div style="margin-top: 10px;">
+                            <button type="submit" class="btn-submit-ticket"><i class="fa-solid fa-paper-plane"></i> Talebi Gönder</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Ticket View Modal -->
+            <div id="viewTicketModal" class="modal-overlay" style="display:none; align-items:center; justify-content:center; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.8); backdrop-filter:blur(5px);">
+                <div class="profile-card" style="width:100%; max-width:600px; margin:20px; animation: scaleIn 0.3s ease; max-height:80vh; display:flex; flex-direction:column;">
+                    <div class="card-header" style="justify-content: space-between; flex-shrink:0;">
+                        <div style="display:flex; align-items:center;">
+                            <div class="header-icon-sm" style="background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); color:white;"><i class="fa-regular fa-comments"></i></div>
+                            <h3 style="margin-left:15px; font-weight:700;" id="viewTicketSubject">Bilet Detayı</h3>
+                        </div>
+                        <button onclick="closeViewTicketModal()" style="background:none; border:none; color:#888; cursor:pointer; font-size:1.5rem; transition: color 0.2s;"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+                    
+                    <div id="ticketMessagesContainer" style="margin-top:20px; overflow-y:auto; flex-grow:1; padding-right:10px; display:flex; flex-direction:column; gap:15px;">
+                        <!-- Messages render here -->
+                    </div>
+
+                    <form id="replyTicketForm">
+                        <textarea id="ticketReplyMessage" placeholder="Yanıtınızı buraya yazın..." required></textarea>
+                        <button type="submit" class="btn-send-reply">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            <span>Yanıtı Gönder</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- JS for Dynamic Store Rendering -->
+    <script>
+        let currentViewingTicketId = null;
+
+        function refreshTicketsTable() {
+            const table = document.querySelector('#ticketsTable tbody');
+            const activeUser = localStorage.getItem('w2_session_user') || 'Misafir';
+            const tickets = JSON.parse(localStorage.getItem('w2_tickets') || '[]');
+            
+            const myTickets = tickets.filter(t => t.user === activeUser);
+            
+            if (myTickets.length === 0) {
+                table.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#888;padding:2rem;">Hiç destek talebiniz bulunmuyor.</td></tr>';
+                return;
+            }
+
+            // Descending order sort by creation or ID
+            myTickets.sort((a,b) => b.id.localeCompare(a.id));
+
+            let html = '';
+            myTickets.forEach(t => {
+                let badgeClass = 'badge-success'; // Open
+                let statusTr = `<i class="fa-solid fa-envelope-open"></i> Açık`;
+                if (t.status === 'closed') { badgeClass = 'badge-danger'; statusTr = `<i class="fa-solid fa-lock"></i> Kapalı`; }
+                if (t.status === 'answered') { badgeClass = 'badge-info'; statusTr = `<i class="fa-solid fa-reply-all"></i> Yanıtlandı`; }
+
+                const categoryIcon = t.category.includes('Ödeme') ? '💳' : (t.category.includes('Teknik') ? '🛠️' : (t.category.includes('Lisans') ? '🔑' : '❓'));
+
+                html += `
+                    <tr style="animation: slideInUp 0.3s ease-out both;">
+                        <td><span style="font-family:monospace; color:var(--primary); font-weight:700;">#${t.id.split('-')[1] || t.id.substring(4,10)}</span></td>
+                        <td><strong style="color:white;">${t.subject}</strong></td>
+                        <td><span style="display:flex; align-items:center; gap:8px;">${categoryIcon} ${t.category}</span></td>
+                        <td><i class="fa-regular fa-calendar-days" style="margin-right:5px; opacity:0.6;"></i> ${t.date}</td>
+                        <td><span class="${badgeClass}">${statusTr}</span></td>
+                        <td><button class="btn-primary" style="padding:6px 15px; font-size:0.8rem; border-radius:6px;" onclick="viewTicket('${t.id}')">Görüntüle</button></td>
+                    </tr>
+                `;
+            });
+            table.innerHTML = html;
+        }
+
+        function openNewTicketModal() {
+            document.getElementById('newTicketModal').style.display = 'flex';
+        }
+        function closeNewTicketModal() {
+            document.getElementById('newTicketModal').style.display = 'none';
+        }
+
+        function viewTicket(id) {
+            currentViewingTicketId = id;
+            const tickets = JSON.parse(localStorage.getItem('w2_tickets') || '[]');
+            const ticket = tickets.find(t => t.id === id);
+            if (!ticket) return;
+
+            document.getElementById('viewTicketSubject').innerText = `Talep: ${ticket.subject}`;
+            renderMessages(ticket.messages);
+            
+            const replyInput = document.getElementById('ticketReplyMessage');
+            if (ticket.status === 'closed') {
+                replyInput.disabled = true;
+                replyInput.placeholder = "Bu bilet kapatılmış, yanıt eklenemez.";
+            } else {
+                replyInput.disabled = false;
+                replyInput.placeholder = "Yanıt yazın...";
+            }
+
+            document.getElementById('viewTicketModal').style.display = 'flex';
+            
+            // Auto scroll to bottom
+             setTimeout(() => {
+                const container = document.getElementById('ticketMessagesContainer');
+                container.scrollTop = container.scrollHeight;
+            }, 50);
+        }
+
+        function closeViewTicketModal() {
+            document.getElementById('viewTicketModal').style.display = 'none';
+            currentViewingTicketId = null;
+        }
+
+        function renderMessages(messages) {
+            const activeUser = localStorage.getItem('w2_session_user') || 'Misafir';
+            const container = document.getElementById('ticketMessagesContainer');
+            
+            let html = '';
+            messages.forEach(m => {
+                const isMe = m.sender === activeUser;
+                const isAdmin = m.sender.toLowerCase() === 'admin' || m.sender.toLowerCase() === 'zerooxx723';
+                const avatarChar = m.sender.substring(0,2).toUpperCase();
+                
+                html += `
+                    <div class="ticket-message" style="display:flex; gap:12px; flex-direction: ${isMe ? 'row-reverse' : 'row'}; align-items: flex-start;">
+                        <div class="avatar-sm" style="width:32px; height:32px; border-radius:50%; background:${isAdmin ? 'var(--primary)' : 'rgba(255,255,255,0.1)'}; color:${isAdmin ? 'black' : 'white'}; display:flex; align-items:center; justify-content:center; font-size:0.75rem; font-weight:700; flex-shrink:0;">${avatarChar}</div>
+                        <div style="display:flex; flex-direction:column; align-items: ${isMe ? 'flex-end' : 'flex-start'}; max-width:80%;">
+                            <span style="font-size:0.75rem; color:#888; margin-bottom:4px; display:flex; align-items:center; gap:5px;">
+                                ${isAdmin ? '<i class="fa-solid fa-crown" style="color:var(--primary); font-size:0.7rem;"></i>' : ''} ${m.sender} • ${m.timestamp}
+                            </span>
+                            <div style="background:${isMe ? 'linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%)' : 'rgba(255,255,255,0.05)'}; color:${isMe ? 'white' : '#eee'}; padding:12px 18px; border-radius:${isMe ? '15px 5px 15px 15px' : '5px 15px 15px 15px'}; font-size:0.95rem; line-height:1.5; border: 1px solid rgba(255,255,255,0.05);">
+                                ${m.content.replace(/\\n/g, '<br>')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        document.getElementById('newTicketForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const subject = document.getElementById('ticketSubject').value;
+            const category = document.getElementById('ticketCategory').value;
+            const message = document.getElementById('ticketMessage').value;
+            const activeUser = localStorage.getItem('w2_session_user') || 'Misafir';
+
+            const newTicket = {
+                id: 'TCK-' + Math.random().toString(36).substr(2,9).toUpperCase(),
+                user: activeUser,
+                subject: subject,
+                category: category,
+                date: new Date().toLocaleDateString('tr-TR'),
+                status: 'open', // open, closed, answered
+                messages: [{
+                    sender: activeUser,
+                    content: message,
+                    timestamp: new Date().toLocaleString('tr-TR')
+                }]
+            };
+
+            const tickets = JSON.parse(localStorage.getItem('w2_tickets') || '[]');
+            tickets.push(newTicket);
+            localStorage.setItem('w2_tickets', JSON.stringify(tickets));
+
+            closeNewTicketModal();
+            document.getElementById('newTicketForm').reset();
+            if (typeof showToast === 'function') showToast('Destek talebiniz başarıyla oluşturuldu.', 'success');
+            refreshTicketsTable();
+        });
+
+        document.getElementById('replyTicketForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (!currentViewingTicketId) return;
+
+            const content = document.getElementById('ticketReplyMessage').value;
+            const activeUser = localStorage.getItem('w2_session_user') || 'Misafir';
+            
+            const tickets = JSON.parse(localStorage.getItem('w2_tickets') || '[]');
+            const tIdx = tickets.findIndex(t => t.id === currentViewingTicketId);
+            if (tIdx === -1) return;
+
+            // Only allow if not closed
+            if (tickets[tIdx].status === 'closed') return;
+
+            tickets[tIdx].messages.push({
+                sender: activeUser,
+                content: content,
+                timestamp: new Date().toLocaleString('tr-TR')
+            });
+            // If user replies, change status to open so admin sees it's active
+            tickets[tIdx].status = 'open';
+
+            localStorage.setItem('w2_tickets', JSON.stringify(tickets));
+            document.getElementById('ticketReplyMessage').value = '';
+            
+            if (typeof showToast === 'function') showToast('Yanıtınız gönderildi.', 'success');
+            
+            renderMessages(tickets[tIdx].messages);
+            refreshTicketsTable();
+            
+            setTimeout(() => {
+                const container = document.getElementById('ticketMessagesContainer');
+                container.scrollTop = container.scrollHeight;
+            }, 50);
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.dbSyncPromise) window.dbSyncPromise.then(refreshTicketsTable).catch(refreshTicketsTable);
+            else refreshTicketsTable();
+        });
+    </script>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal-overlay" id="cartModalOverlay">
+        <div class="cart-modal">
+            <div class="cart-modal-header">
+                <h3><i class="fa-solid fa-cart-shopping"></i> Alışveriş Sepeti</h3>
+                <button class="close-cart" id="closeCart"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="cart-modal-body" id="cartContent">
+                <!-- Cart items will be injected here -->
+                <div class="empty-cart-msg">
+                    <i class="fa-solid fa-cart-arrow-down"></i>
+                    <p>Sepetiniz şu anda boş.</p>
+                </div>
+            </div>
+            <div class="cart-modal-footer">
+                <div class="cart-total">
+                    <span>Toplam:</span>
+                    <span id="cartTotalPrice">0.00 ₺</span>
+                </div>
+                <button class="btn-checkout" id="checkoutBtn" disabled>
+                    <i class="fa-solid fa-credit-card"></i> Satın Almayı Tamamla
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+
+
+    <!-- Spin the Wheel Game Modal -->
+    <div id="spinWheelModalOverlay" class="modal-overlay">
+        <div class="spin-wheel-modal">
+            <div class="modal-header">
+                <div class="header-with-icon">
+                    <div class="header-icon-orange"><i class="fa-solid fa-dharmachakra"></i></div>
+                    <div>
+                        <h2>Döndürme Çarkı</h2>
+                        <p>Çarkı çevirin ve muhteşem ödüller kazanın!</p>
+                    </div>
+                </div>
+                <button class="close-modal-btn" onclick="toggleSpinModal(false)"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="wheel-game-container">
+                <!-- Left: Interactive Wheel -->
+                <div class="wheel-section">
+                    <div class="wheel-outer">
+                        <div class="wheel-pointer"></div>
+                        <div class="wheel" id="mainWheel">
+                            <div class="wheel-inner" id="wheelImg">
+                                <div class="segment" data-type="bonus" style="transform: rotate(0deg);"><span><i class="fa-solid fa-coins"></i>BONUS KREDİSİ</span></div>
+                                <div class="segment" data-type="skull" style="transform: rotate(45deg);"><span><i class="fa-solid fa-skull"></i>KAFATASI ÜŞÜMESİ!!</span></div>
+                                <div class="segment" data-type="gift" style="transform: rotate(90deg);"><span><i class="fa-solid fa-gift"></i>1 GÜNLÜK ÜRÜN</span></div>
+                                <div class="segment" data-type="skull" style="transform: rotate(135deg);"><span><i class="fa-solid fa-skull"></i>KAFATASI ÜŞÜMESİ!!</span></div>
+                                <div class="segment" data-type="gift" style="transform: rotate(180deg);"><span><i class="fa-solid fa-gift"></i>7 GÜNLÜK ÜRÜN</span></div>
+                                <div class="segment" data-type="skull" style="transform: rotate(225deg);"><span><i class="fa-solid fa-skull"></i>KAFATASI ÜŞÜMESİ!!</span></div>
+                                <div class="segment" data-type="vip" style="transform: rotate(270deg);"><span><i class="fa-solid fa-crown"></i>30 GÜNLÜK ÜRÜN</span></div>
+                                <div class="segment" data-type="skull" style="transform: rotate(315deg);"><span><i class="fa-solid fa-skull"></i>KAFATASI ÜŞÜMESİ!!</span></div>
+                            </div>
+                            <div class="wheel-center"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Controls -->
+                <div class="wheel-controls">
+                    <div class="balance-display-box">
+                        <div class="box-icon"><i class="fa-solid fa-wallet"></i></div>
+                        <div>
+                            <p>MEVCUT BAKİYE</p>
+                            <h3 id="wheelBalanceText">0.00 ₺</h3>
+                        </div>
+                    </div>
+
+                    <div class="bet-control">
+                        <div class="bet-label">
+                            <span><i class="fa-solid fa-circle"></i> BAHİS</span>
+                            <span id="betAmountDisplay">1.00 ₺</span>
+                        </div>
+                    </div>
+
+                    <div class="multiplier-section">
+                        <p>ÇARPAN</p>
+                        <div class="multiplier-tabs">
+                            <button class="m-tab active" onclick="setMultiplier(1, this)">1x</button>
+                            <button class="m-tab" onclick="setMultiplier(5, this)">5x</button>
+                            <button class="m-tab" onclick="setMultiplier(10, this)">10x</button>
+                        </div>
+                    </div>
+
+                    <button class="btn-spin-wheel" id="btnSpin">DÖNDÜR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Update prices currency
+            const sym = localStorage.getItem('w2_currency') || '₺';
+            document.querySelectorAll('.dyn-price').forEach(el => {
+                const valStr = el.innerText.replace(/[^0-9.]/g, '');
+                if (valStr) {
+                    el.innerText = parseFloat(valStr).toFixed(2) + ' ' + sym;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

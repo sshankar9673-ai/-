@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Paneli - W2 CHEATS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="admin.css">
+    <script>
+        // Instant Theme Loader - Prevents "Orange Flash"
+        (function() {
+            const savedH = localStorage.getItem('w2_primary_h');
+            if (savedH) document.documentElement.style.setProperty('--primary-h', savedH);
+        })();
+    </script>
+</head>
+<body class="dashboard-body admin-body">
+
+    <!-- Sidebar -->
+    <aside class="sidebar admin-sidebar">
+        <div class="sidebar-header">
+            <img src="assets/logo.png" alt="W2 Pro Logo" class="sidebar-logo">
+        </div>
+
+        <div class="user-profile-sm">
+            <div class="avatar" id="sidebarAvatar">AD</div>
+            <div class="user-info">
+                <h4><span id="displayUsername">Admin</span> <i class="fa-solid fa-crown text-primary"></i></h4>
+                <span class="status"><i class="fa-solid fa-circle text-success"></i> Kurucu</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="index.html" class="nav-item logout-btn"><i class="fa-solid fa-arrow-left"></i> Siteye Dön</a>
+            
+            <div class="nav-divider"></div>
+            
+            <a href="admin.html" class="nav-item"><i class="fa-solid fa-gauge-high"></i> Kontrol Paneli</a>
+            <a href="admin-users.html" class="nav-item"><i class="fa-solid fa-users"></i> Kullanıcı Yönetimi</a>
+            <a href="admin-store.html" class="nav-item active"><i class="fa-solid fa-store"></i> Mağaza Yönetimi</a>
+
+            <a href="admin-tickets.html" class="nav-item"><i class="fa-solid fa-headset"></i> Destek Biletleri</a>
+            <a href="admin-logs.html" class="nav-item"><i class="fa-solid fa-clock-rotate-left"></i> Sistem Günlüğü</a>
+            <a href="#" class="nav-item text-muted"><i class="fa-solid fa-chart-line"></i> İstatistikler <span class="badge-soon">Yakında</span></a>
+        </nav>
+
+        <a href="index.html" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Çıkış Yap</a>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Top Navbar -->
+        <header class="top-nav">
+            <div class="nav-left">
+                <button class="menu-toggle"><i class="fa-solid fa-bars"></i></button>
+                <h2 style="margin-left: 15px; font-family: var(--font-heading); color: var(--primary);">OWNER PANEL</h2>
+            </div>
+            <div class="nav-actions">
+                <button class="icon-btn" onclick="toggleSettingsModal(true)"><i class="fa-solid fa-gear"></i></button>
+                <button class="icon-btn" onclick="toggleNotifications(this, event)"><i class="fa-regular fa-bell"></i></button>
+                <div class="top-avatar" id="navAvatar">AD</div>
+            </div>
+        </header>
+
+        <!-- Admin Content -->
+        <div class="content-wrapper">
+        <div class="content-wrapper">
+            <div class="page-header" style="justify-content: space-between; display: flex; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <div class="header-icon"><i class="fa-solid fa-store"></i></div>
+                    <div>
+                        <h1>Mağaza Yönetimi</h1>
+                        <p>Satılacak hileleri ekleyin, düzenleyin ve ürün durumlarını değiştirin.</p>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="window.addMockProduct()" style="padding: 0.8rem 1.5rem;"><i class="fa-solid fa-plus"></i> Varsayılan Ürün Ekle</button>
+            </div>
+
+            <div class="admin-card glass premium-glow" style="margin-top: 2rem;">
+                <div class="admin-card-header" style="justify-content: space-between;">
+                    <h3><i class="fa-solid fa-boxes-stacked text-primary"></i> Mağaza Ürünleri (<span id="totalProductCount">0</span>)</h3>
+                    <div class="input-with-icon" style="max-width: 250px;">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="searchProduct" placeholder="Ürün ara...">
+                    </div>
+                </div>
+                <div class="admin-card-body p-0">
+                    <div class="table-responsive">
+                        <table class="admin-table" id="productsTable">
+                            <thead>
+                                <tr>
+                                    <th>Görsel</th>
+                                    <th>Ürün Adı</th>
+                                    <th>Kategori</th>
+                                    <th>Fiyat</th>
+                                    <th>Durum</th>
+                                    <th style="text-align: right;">İşlemler</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td colspan="6" style="text-align: center;">Yükleniyor...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+    </div>
+
+    <!-- Modals -->
+    <!-- Add/Edit News Modal -->
+    <div id="newsModal" class="admin-modal-overlay">
+        <div class="admin-modal">
+            <h2 id="newsModalTitle">Yeni Haber Ekle</h2>
+            <input type="hidden" id="editNewsIndex" value="-1">
+            <div class="admin-group">
+                <label>Başlık</label>
+                <input type="text" id="newsTitle" class="admin-input" placeholder="Haber başlığını girin...">
+            </div>
+            <div class="admin-group">
+                <label>Kategori</label>
+                <select id="newsCategory" class="admin-select">
+                    <option value="Duyuru">Duyuru</option>
+                    <option value="Güncelleme">Güncelleme</option>
+                    <option value="Bakım">Bakım</option>
+                </select>
+            </div>
+            <div class="admin-group">
+                <label>Haber Görseli</label>
+                <div class="admin-upload-zone" id="newsUploadZone" onclick="document.getElementById('newsFileInput').click()">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                    <p>Resmi buraya sürükleyin veya tıklayarak seçin</p>
+                    <input type="file" id="newsFileInput" style="display:none" accept="image/*">
+                </div>
+                <div id="newsPreviewContainer" class="upload-preview-container">
+                    <img id="newsPreviewImg" src="" class="upload-preview-img">
+                    <button class="remove-upload" onclick="clearUpload('news')"><i class="fa-solid fa-xmark"></i></button>
+                    <input type="hidden" id="newsBase64">
+                </div>
+            </div>
+            <div class="admin-group">
+                <label>İçerik</label>
+                <textarea id="newsContent" class="admin-textarea" placeholder="Haber detaylarını yazın..."></textarea>
+            </div>
+            <div class="admin-btn-group">
+                <button class="admin-btn-cancel" onclick="closeNewsModal()">İptal</button>
+                <button class="admin-btn-submit" onclick="saveNews()">Kaydet</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Product Modal -->
+    <div id="productModal" class="admin-modal-overlay">
+        <div class="admin-modal">
+            <h2>Yeni Ürün Ekle</h2>
+            <div class="admin-group">
+                <label>Ürün Adı</label>
+                <input type="text" id="prodName" class="admin-input" placeholder="Örn: FREE FIRE VIP">
+            </div>
+            <div class="admin-group">
+                <label>Kategori</label>
+                <input type="text" id="prodCategory" class="admin-input" placeholder="Örn: PC OYUNU">
+            </div>
+            <div class="admin-group" style="display:flex; gap:1rem;">
+                <div style="flex:1;">
+                    <label>Fiyat (₺)</label>
+                    <input type="number" id="prodPrice" class="admin-input" placeholder="0.00">
+                </div>
+                <div style="flex:1;">
+                    <label>Süre</label>
+                    <input type="text" id="prodDuration" class="admin-input" placeholder="30 Gün">
+                </div>
+            </div>
+            <div class="admin-group">
+                <label>Ürün Görseli</label>
+                <div class="admin-upload-zone" id="prodUploadZone" onclick="document.getElementById('prodFileInput').click()">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                    <p>Resmi buraya sürükleyin veya tıklayarak seçin</p>
+                    <input type="file" id="prodFileInput" style="display:none" accept="image/*">
+                </div>
+                <div id="prodPreviewContainer" class="upload-preview-container">
+                    <img id="prodPreviewImg" src="" class="upload-preview-img">
+                    <button class="remove-upload" onclick="clearUpload('prod')"><i class="fa-solid fa-xmark"></i></button>
+                    <input type="hidden" id="prodBase64">
+                </div>
+            </div>
+            <div class="admin-group">
+                <label>Açıklama</label>
+                <textarea id="prodDesc" class="admin-textarea" placeholder="Ürün özelliklerini belirtin..."></textarea>
+            </div>
+            <div class="admin-btn-group">
+                <button class="admin-btn-cancel" onclick="closeProductModal()">İptal</button>
+                <button class="admin-btn-submit" onclick="saveNewProduct()">Ürünü Oluştur</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Global Scripts -->
+    <script src="script.js"></script>
+    
+    <!-- Admin Specific Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tableBody = document.querySelector('#productsTable tbody');
+            const searchInput = document.getElementById('searchProduct');
+            const totalCount = document.getElementById('totalProductCount');
+            const newsListBody = document.getElementById('newsListBody');
+            
+            let allProducts = [];
+
+            // Helper for Image Upload & Compression
+            window.handleFileUpload = (file, type) => {
+                if (!file.type.startsWith('image/')) {
+                    showToast('Lütfen geçerli bir resim dosyası seçin!', 'error');
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        // Create canvas for compression/resizing
+                        const canvas = document.createElement('canvas');
+                        let width = img.width;
+                        let height = img.height;
+                        const maxDim = 400; // Efficient size for localStorage
+
+                        if (width > height) {
+                            if (width > maxDim) {
+                                height *= maxDim / width;
+                                width = maxDim;
+                            }
+                        } else {
+                            if (height > maxDim) {
+                                width *= maxDim / height;
+                                height = maxDim;
+                            }
+                        }
+
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+
+                        const base64 = canvas.toDataURL('image/jpeg', 0.82); // Optimized quality
+                        document.getElementById(`${type}Base64`).value = base64;
+                        document.getElementById(`${type}PreviewImg`).src = base64;
+                        document.getElementById(`${type}PreviewContainer`).classList.add('show');
+                        document.getElementById(`${type}UploadZone`).style.display = 'none';
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            };
+
+            window.clearUpload = (type) => {
+                document.getElementById(`${type}Base64`).value = '';
+                document.getElementById(`${type}PreviewImg`).src = '';
+                document.getElementById(`${type}PreviewContainer`).classList.remove('show');
+                document.getElementById(`${type}UploadZone`).style.display = 'block';
+                document.getElementById(`${type}FileInput`).value = '';
+            };
+
+            const setupUploadZone = (type) => {
+                const zone = document.getElementById(`${type}UploadZone`);
+                const input = document.getElementById(`${type}FileInput`);
+
+                zone.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    zone.classList.add('dragover');
+                });
+
+                zone.addEventListener('dragleave', () => {
+                    zone.classList.remove('dragover');
+                });
+
+                zone.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    zone.classList.remove('dragover');
+                    const file = e.dataTransfer.files[0];
+                    if (file) handleFileUpload(file, type);
+                });
+
+                input.addEventListener('change', (e) => {
+                    const file = e.target.files[0];
+                    if (file) handleFileUpload(file, type);
+                });
+            };
+
+            setupUploadZone('news');
+            setupUploadZone('prod');
+
+            function renderProducts() {
+                allProducts = JSON.parse(localStorage.getItem('w2_products') || '[]');
+                totalCount.innerText = allProducts.length;
+                
+                const filterText = (searchInput.value || '').toLowerCase();
+                const filtered = allProducts.filter(p => 
+                    p.name.toLowerCase().includes(filterText) || 
+                    p.category.toLowerCase().includes(filterText)
+                );
+
+                if (filtered.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#888;padding:2rem;">Ürün bulunamadı.</td></tr>';
+                    return;
+                }
+
+                tableBody.innerHTML = filtered.map(p => {
+                    let statusBadge = '';
+                    if(p.status === 'active') statusBadge = '<span class="badge-success">Aktif</span>';
+                    else if(p.status === 'maintenance') statusBadge = '<span class="badge-danger">Bakımda</span>';
+                    else statusBadge = '<span class="badge-soon" style="background:#555;">Stok Yok</span>';
+
+                    return `
+                        <tr>
+                            <td><img src="${p.icon || 'assets/logo.png'}" style="width: 40px; height: 40px; border-radius: 8px; object-fit: cover; border: 1px solid rgba(255,255,255,0.1);"></td>
+                            <td><strong>${p.name}</strong></td>
+                            <td style="color:#aaa;">${p.category}</td>
+                            <td><span style="font-weight:600; color:var(--primary);">${p.price} ₺</span></td>
+                            <td>${statusBadge}</td>
+                            <td style="text-align: right; white-space:nowrap;">
+                                <button class="icon-btn" title="Durumu Değiştir" onclick="toggleStatus('${p.id}')" style="color:var(--success); background:rgba(34, 197, 94, 0.1);"><i class="fa-solid fa-power-off"></i></button>
+                                <button class="icon-btn" title="Fiyat Düzenle" onclick="editPrice('${p.id}')" style="color:var(--primary); background:rgba(249,115,22,0.1);"><i class="fa-solid fa-pen-to-square"></i></button>
+                                <button class="icon-btn" title="Ürünü Sil" onclick="deleteProduct('${p.id}')" style="color:#f43f5e; background:rgba(244,63,94,0.1);"><i class="fa-solid fa-trash-can"></i></button>
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+            }
+
+            // Products Logic
+            window.toggleStatus = (id) => {
+                const prod = allProducts.find(p => p.id === id);
+                if(!prod) return;
+                prod.status = prod.status === 'active' ? 'maintenance' : (prod.status === 'maintenance' ? 'out_of_stock' : 'active');
+                localStorage.setItem('w2_products', JSON.stringify(allProducts));
+                showToast(`Durum güncellendi: ${prod.status}`, 'success');
+                renderProducts();
+            };
+
+            window.editPrice = (id) => {
+                const prod = allProducts.find(p => p.id === id);
+                if(!prod) return;
+                const newPrice = prompt(`[${prod.name}] için yeni fiyat:`, prod.price);
+                if (newPrice && !isNaN(newPrice)) {
+                    const oldPrice = prod.price;
+                    prod.price = parseFloat(newPrice);
+                    localStorage.setItem('w2_products', JSON.stringify(allProducts));
+                    if (window.logAdminAction) logAdminAction('Fiyat Güncelleme', prod.name, `${oldPrice}₺ -> ${prod.price}₺`);
+                    showToast('Fiyat güncellendi!', 'success');
+                    renderProducts();
+                }
+            };
+
+            window.deleteProduct = (id) => {
+                if (confirm('Bu ürünü silmek istediğinize emin misiniz?')) {
+                    const prod = allProducts.find(p => p.id === id);
+                    const name = prod ? prod.name : 'Unknown';
+                    allProducts = allProducts.filter(p => p.id !== id);
+                    localStorage.setItem('w2_products', JSON.stringify(allProducts));
+                    if (window.logAdminAction) logAdminAction('Ürün Silme', name);
+                    showToast('Ürün silindi!', 'info');
+                    renderProducts();
+                }
+            };
+
+            // Product Modal Logic
+            window.addMockProduct = () => {
+                document.getElementById('productModal').classList.add('show');
+                document.getElementById('prodName').value = '';
+                document.getElementById('prodPrice').value = '';
+                document.getElementById('prodCategory').value = '';
+                document.getElementById('prodDuration').value = '30 Gün';
+                document.getElementById('prodImage').value = '';
+                document.getElementById('prodDesc').value = '';
+                clearUpload('prod');
+            };
+            window.closeProductModal = () => {
+                document.getElementById('productModal').classList.remove('show');
+            };
+            window.saveNewProduct = () => {
+                const name = document.getElementById('prodName').value;
+                const price = document.getElementById('prodPrice').value;
+                if(!name || !price) { showToast('Lütfen ad ve fiyat girin!', 'error'); return; }
+
+                const newProd = {
+                    id: 'prod_' + Date.now(),
+                    name: name,
+                    price: parseFloat(price),
+                    category: document.getElementById('prodCategory').value || 'Hile',
+                    duration: document.getElementById('prodDuration').value || '30 Gün',
+                    desc: document.getElementById('prodDesc').value || '',
+                    icon: document.getElementById('prodBase64').value || 'assets/logo.png',
+                    status: 'active',
+                    popularity: 50, rating: 5, ratingCount: 0, sales: 0
+                };
+
+                allProducts.push(newProd);
+                localStorage.setItem('w2_products', JSON.stringify(allProducts));
+                if (window.logAdminAction) logAdminAction('Ürün Ekleme', name, price + ' ₺');
+                showToast('Yeni ürün başarıyla eklendi!', 'success');
+                closeProductModal();
+                renderProducts();
+            };
+
+            // News Logic
+            function renderNews() {
+                const news = JSON.parse(localStorage.getItem('w2_news') || '[]');
+                if (news.length === 0) {
+                    newsListBody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:#888;padding:2rem;">Henüz haber eklenmemiş.</td></tr>';
+                    return;
+                }
+
+                newsListBody.innerHTML = news.map((n, i) => `
+                    <tr>
+                        <td><strong>${n.title}</strong></td>
+                        <td><span class="badge-info" style="font-size:0.7rem;">${n.category}</span></td>
+                        <td style="color:#666;">${n.date}</td>
+                        <td style="text-align: right;">
+                            <button class="icon-btn" onclick="editNews(${i})" style="color:var(--primary); background:rgba(249,115,22,0.1);"><i class="fa-solid fa-pen"></i></button>
+                            <button class="icon-btn" onclick="deleteNews(${i})" style="color:#f43f5e; background:rgba(244,63,94,0.1);"><i class="fa-solid fa-trash-can"></i></button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+
+            window.addNews = () => {
+                document.getElementById('newsModalTitle').innerText = 'Yeni Haber Ekle';
+                document.getElementById('editNewsIndex').value = '-1';
+                document.getElementById('newsTitle').value = '';
+                document.getElementById('newsContent').value = '';
+                clearUpload('news');
+                document.getElementById('newsModal').classList.add('show');
+            };
+
+            window.closeNewsModal = () => {
+                document.getElementById('newsModal').classList.remove('show');
+            };
+
+            window.editNews = (index) => {
+                const news = JSON.parse(localStorage.getItem('w2_news') || '[]');
+                const item = news[index];
+                document.getElementById('newsModalTitle').innerText = 'Haberi Düzenle';
+                document.getElementById('editNewsIndex').value = index;
+                document.getElementById('newsTitle').value = item.title;
+                document.getElementById('newsCategory').value = item.category;
+                document.getElementById('newsContent').value = item.content;
+                
+                if(item.image && item.image.startsWith('data:')) {
+                    document.getElementById('newsBase64').value = item.image;
+                    document.getElementById('newsPreviewImg').src = item.image;
+                    document.getElementById('newsPreviewContainer').classList.add('show');
+                    document.getElementById('newsUploadZone').style.display = 'none';
+                } else {
+                    clearUpload('news');
+                }
+                
+                document.getElementById('newsModal').classList.add('show');
+            };
+
+            window.saveNews = () => {
+                const title = document.getElementById('newsTitle').value;
+                const index = parseInt(document.getElementById('editNewsIndex').value);
+                if(!title) { showToast('Başlık gereklidir!', 'error'); return; }
+
+                const news = JSON.parse(localStorage.getItem('w2_news') || '[]');
+                const newsObj = {
+                    title: title,
+                    category: document.getElementById('newsCategory').value,
+                    content: document.getElementById('newsContent').value,
+                    date: new Date().toLocaleDateString('tr-TR'),
+                    image: document.getElementById('newsBase64').value || 'assets/logo.png'
+                };
+
+                if(index > -1) {
+                    news[index] = newsObj;
+                    showToast('Haber güncellendi!', 'success');
+                    if (window.logAdminAction) logAdminAction('Haber Güncelleme', title);
+                } else {
+                    news.push(newsObj);
+                    showToast('Yeni haber eklendi!', 'success');
+                    if (window.logAdminAction) logAdminAction('Haber Ekleme', title);
+                }
+
+                localStorage.setItem('w2_news', JSON.stringify(news));
+                closeNewsModal();
+                renderNews();
+            };
+
+            window.deleteNews = (index) => {
+                if (confirm('Bu haberi silmek istediğinize emin misiniz?')) {
+                    const news = JSON.parse(localStorage.getItem('w2_news') || '[]');
+                    const title = news[index].title;
+                    news.splice(index, 1);
+                    localStorage.setItem('w2_news', JSON.stringify(news));
+                    if (window.logAdminAction) logAdminAction('Haber Silme', title);
+                    showToast('Haber silindi.', 'info');
+                    renderNews();
+                }
+            };
+
+            searchInput.addEventListener('input', renderProducts);
+            renderProducts();
+            renderNews();
+        });
+    </script>
+
+</body>
+</html>

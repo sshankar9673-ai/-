@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Paneli - W2 CHEATS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="admin.css">
+    <script>
+        // Instant Theme Loader - Prevents "Orange Flash"
+        (function() {
+            const savedH = localStorage.getItem('w2_primary_h');
+            if (savedH) document.documentElement.style.setProperty('--primary-h', savedH);
+        })();
+    </script>
+</head>
+<body class="dashboard-body admin-body">
+
+    <!-- Sidebar -->
+    <aside class="sidebar admin-sidebar">
+        <div class="sidebar-header">
+            <img src="assets/logo.png" alt="W2 Pro Logo" class="sidebar-logo">
+        </div>
+
+        <div class="user-profile-sm">
+            <div class="avatar" id="sidebarAvatar">AD</div>
+            <div class="user-info">
+                <h4><span id="displayUsername">Admin</span> <i class="fa-solid fa-crown text-primary"></i></h4>
+                <span class="status"><i class="fa-solid fa-circle text-success"></i> Kurucu</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="index.html" class="nav-item logout-btn"><i class="fa-solid fa-arrow-left"></i> Siteye Dön</a>
+            
+            <div class="nav-divider"></div>
+            
+            <a href="admin.html" class="nav-item active"><i class="fa-solid fa-gauge-high"></i> Kontrol Paneli</a>
+            <a href="admin-users.html" class="nav-item"><i class="fa-solid fa-users"></i> Kullanıcı Yönetimi</a>
+            <a href="admin-store.html" class="nav-item"><i class="fa-solid fa-store"></i> Mağaza Yönetimi</a>
+
+            <a href="admin-tickets.html" class="nav-item"><i class="fa-solid fa-headset"></i> Destek Biletleri</a>
+            <a href="admin-logs.html" class="nav-item"><i class="fa-solid fa-clock-rotate-left"></i> Sistem Günlüğü</a>
+            <a href="#" class="nav-item text-muted"><i class="fa-solid fa-chart-line"></i> İstatistikler <span class="badge-soon">Yakında</span></a>
+        </nav>
+
+        <a href="index.html" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Çıkış Yap</a>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Top Navbar -->
+        <header class="top-nav">
+            <div class="nav-left">
+                <button class="menu-toggle"><i class="fa-solid fa-bars"></i></button>
+                <h2 style="margin-left: 15px; font-family: var(--font-heading); color: var(--primary);">OWNER PANEL</h2>
+            </div>
+            <div class="nav-actions">
+                <button class="icon-btn" onclick="toggleSettingsModal(true)"><i class="fa-solid fa-gear"></i></button>
+                <button class="icon-btn" onclick="toggleNotifications(this, event)"><i class="fa-regular fa-bell"></i></button>
+                <div class="top-avatar" id="navAvatar">AD</div>
+            </div>
+        </header>
+
+        <!-- Admin Content -->
+        <div class="content-wrapper">
+            <div class="page-header">
+                <div class="header-icon"><i class="fa-solid fa-crown"></i></div>
+                <div>
+                    <h1>Kurucu Kontrol Paneli</h1>
+                    <p>Sistemi yönetin, kullanıcılara bakiye gönderin ve ayarları yapılandırın.</p>
+                </div>
+            </div>
+
+            <!-- Stats Overview -->
+            <div class="admin-stats-grid">
+                <div class="admin-stat-card glass">
+                    <div class="stat-icon-wrapper"><i class="fa-solid fa-users"></i></div>
+                    <div class="stat-details">
+                        <span class="stat-title">Toplam Kullanıcı</span>
+                        <h2 class="stat-value">1,248</h2>
+                    </div>
+                </div>
+                <div class="admin-stat-card glass">
+                    <div class="stat-icon-wrapper"><i class="fa-solid fa-wallet"></i></div>
+                    <div class="stat-details">
+                        <span class="stat-title">Sistemdeki Toplam Bakiye</span>
+                        <h2 class="stat-value">65,000 ₺</h2>
+                    </div>
+                </div>
+                <div class="admin-stat-card glass">
+                    <div class="stat-icon-wrapper"><i class="fa-solid fa-cart-shopping"></i></div>
+                    <div class="stat-details">
+                        <span class="stat-title">Toplam Satış</span>
+                        <h2 class="stat-value">856</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin-grid-layout">
+                <!-- Send Balance Section -->
+                <div class="admin-card glass premium-glow">
+                    <div class="admin-card-header">
+                        <h3><i class="fa-solid fa-money-bill-transfer text-primary"></i> Kullanıcıya Bakiye Gönder</h3>
+                    </div>
+                    <div class="admin-card-body">
+                        <form id="sendBalanceForm" class="admin-form">
+                            <div class="form-group">
+                                <label for="targetUser">Kullanıcı Adı</label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-user"></i>
+                                    <input type="text" id="targetUser" placeholder="Örn: zerooxx723" required>
+                                </div>
+                                <span class="form-hint">Bakiyeyi göndermek istediğiniz üyenin tam kullanıcı adını girin. Kendinize göndermek için mevcut kullanıcı adınızı yazın.</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="amount">Gönderilecek Tutar (₺)</label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-turkish-lira-sign"></i>
+                                    <input type="number" id="amount" placeholder="Örn: 500" min="1" step="0.01" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message">İşlem Notu (Opsiyonel)</label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-comment-dots"></i>
+                                    <input type="text" id="message" placeholder="Örn: Etkinlik Ödülü">
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn-primary" style="margin-top: 15px;">
+                                <i class="fa-solid fa-paper-plane"></i> BAKİYE GÖNDER
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Recent Transactions (Simulated) -->
+                <div class="admin-card glass">
+                    <div class="admin-card-header">
+                        <h3><i class="fa-solid fa-clock-rotate-left text-primary"></i> Son Admin İşlemleri</h3>
+                    </div>
+                    <div class="admin-card-body p-0">
+                        <div class="table-responsive">
+                            <table class="admin-table" id="adminLogTable">
+                                <thead>
+                                    <tr>
+                                        <th>İşlem Tipi</th>
+                                        <th>Kullanıcı</th>
+                                        <th>Miktar / Detay</th>
+                                        <th>Tarih</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="4" style="text-align:center;color:#888;">Yükleniyor...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </main>
+
+    <!-- Global Scripts -->
+    <script src="script.js"></script>
+    
+    <!-- Admin Specific Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sendBalanceForm = document.getElementById('sendBalanceForm');
+            
+            if (sendBalanceForm) {
+                sendBalanceForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    
+                    const targetUser = document.getElementById('targetUser').value.trim();
+                    const amount = parseFloat(document.getElementById('amount').value);
+                    const activeUser = localStorage.getItem('w2_session_user');
+                    
+                    if (!targetUser || isNaN(amount) || amount <= 0) {
+                        if(typeof showToast === 'function') showToast('Lütfen geçerli bir kullanıcı ve tutar girin.', 'error');
+                        return;
+                    }
+                    
+                    // Button Loading State
+                    const btn = sendBalanceForm.querySelector('button[type="submit"]');
+                    const oldHTML = btn.innerHTML;
+                    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> İŞLENİYOR...';
+                    btn.disabled = true;
+                    
+                    setTimeout(() => {
+                        let users = JSON.parse(localStorage.getItem('w2_users') || '[]');
+                        let uIndex = users.findIndex(u => u.username.toLowerCase() === targetUser.toLowerCase());
+                        
+                        if (uIndex !== -1) {
+                            // User exists in Database, add balance
+                            users[uIndex].balance = (users[uIndex].balance || 0) + amount;
+                            localStorage.setItem('w2_users', JSON.stringify(users));
+                            
+                            // If the target is the active session user, also update session balance
+                            if (activeUser && activeUser.toLowerCase() === targetUser.toLowerCase()) {
+                                let currentBal = parseFloat(localStorage.getItem('w2_balance') || '0');
+                                localStorage.setItem('w2_balance', (currentBal + amount).toString());
+                                if(typeof updateBalanceUI === 'function') updateBalanceUI();
+                            }
+                            
+                            if(typeof showToast === 'function') showToast(`${users[uIndex].username} kullanıcısına ${amount} ₺ eklendi!`, 'success');
+                        } else {
+                            // Target might be the Admin themselves not in DB
+                            if (activeUser && activeUser.toLowerCase() === targetUser.toLowerCase()) {
+                                let currentBal = parseFloat(localStorage.getItem('w2_balance') || '0');
+                                localStorage.setItem('w2_balance', (currentBal + amount).toString());
+                                if(typeof updateBalanceUI === 'function') updateBalanceUI();
+                                if(typeof showToast === 'function') showToast(`${amount} ₺ hesabınıza başarıyla eklendi!`, 'success');
+                            } else {
+                                if(typeof showToast === 'function') showToast('Kullanıcı bulunamadı!', 'error');
+                                btn.innerHTML = oldHTML;
+                                btn.disabled = false;
+                                return;
+                            }
+                        }
+                        
+                        // Add to persistent log
+                        let adminLogs = JSON.parse(localStorage.getItem('w2_admin_logs') || '[]');
+                        adminLogs.unshift({
+                            type: 'Bakiye Ekleme',
+                            typeClass: 'badge-success',
+                            user: targetUser,
+                            detail: `+${amount.toFixed(2)} ₺`,
+                            date: new Date().toISOString()
+                        });
+                        if (adminLogs.length > 50) adminLogs.length = 50;
+                        localStorage.setItem('w2_admin_logs', JSON.stringify(adminLogs));
+                        
+                        // Force table re-render
+                        if (typeof renderAdminLogs === 'function') renderAdminLogs();
+                        
+                        // Reset Form
+                        sendBalanceForm.reset();
+                        btn.innerHTML = oldHTML;
+                        btn.disabled = false;
+                        
+                    }, 1200);
+                });
+            }
+
+            // Central Log Rendering
+            window.renderAdminLogs = function() {
+                const tbody = document.querySelector('#adminLogTable tbody');
+                if (!tbody) return;
+                
+                // Helper: convert ISO date to Turkish relative time
+                function timeAgo(isoString) {
+                    if (!isoString || isoString === 'Az Önce' || isoString === 'Şimdi') return 'Az Önce';
+                    const diff = Math.floor((Date.now() - new Date(isoString)) / 1000);
+                    if (diff < 60) return `${diff} saniye önce`;
+                    if (diff < 3600) return `${Math.floor(diff / 60)} dakika önce`;
+                    if (diff < 86400) return `${Math.floor(diff / 3600)} saat önce`;
+                    return `${Math.floor(diff / 86400)} gün önce`;
+                }
+                
+                let adminLogs = JSON.parse(localStorage.getItem('w2_admin_logs') || '[]');
+                if (adminLogs.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:#888;">Henüz hiç işlem yapılmadı.</td></tr>';
+                    return;
+                }
+                
+                let html = '';
+                adminLogs.forEach(log => {
+                    html += `
+                        <tr style="animation: fadeDown 0.3s ease forwards;">
+                            <td><span class="${log.typeClass}">${log.type}</span></td>
+                            <td><strong>${log.user}</strong></td>
+                            <td style="color:#aaa;">${log.detail}</td>
+                            <td style="color:#666; font-size: 0.85rem;">${timeAgo(log.date)}</td>
+                        </tr>
+                    `;
+                });
+                tbody.innerHTML = html;
+            };
+
+            // Initial Render
+            renderAdminLogs();
+        });
+    </script>
+</body>
+</html>

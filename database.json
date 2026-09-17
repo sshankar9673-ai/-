@@ -1,0 +1,185 @@
+{
+    "w2_users": [
+        {
+            "username": "savastx",
+            "email": "savastx@gmail.com",
+            "password": "22",
+            "balance": 0,
+            "registrationDate": "29.03.2026",
+            "lastLoginDate": "29.03.2026",
+            "sessions": [
+                {
+                    "id": 1774754295802,
+                    "ip": "172.51.133.250",
+                    "browser": "Windows NT 10.0; Win64; x64",
+                    "date": "29.03.2026 06:18:15",
+                    "status": "Başarılı"
+                }
+            ]
+        }
+    ],
+    "w2_products": [
+        {
+            "id": "prod_1",
+            "name": "FREE FIRE - MOD MENÜSÜ",
+            "price": 1200,
+            "category": "FREE FIRE",
+            "popularity": 95,
+            "icon": "assets/ff_mod_menu_user.png",
+            "badgeText": "Vurgu",
+            "badgeIcon": "fa-bolt",
+            "badgeClass": "badge-vurgu",
+            "isPro": true,
+            "proText": "Profesyonel",
+            "proIcon": "fa-star",
+            "desc": "Tüm cihazlar için optimize edilmiş; Aimbot, ESP, Geri Tepme Azaltıcı gibi en güçlü özellikleri tek menüde toplayan versiyon.",
+            "rating": 5,
+            "ratingCount": 14624,
+            "tags": [
+                "FREE FIRE",
+                "Mod",
+                "Android/PC"
+            ],
+            "sales": 142,
+            "duration": "30 Gün",
+            "oldPrice": 1500,
+            "status": "active"
+        },
+        {
+            "id": "prod_2",
+            "name": "FREE FIRE - EXTERNAL",
+            "price": 800,
+            "category": "FREE FIRE",
+            "popularity": 90,
+            "icon": "assets/ff_external_user.png",
+            "badgeText": "En Çok Satan",
+            "badgeIcon": "fa-fire",
+            "badgeClass": "badge-vurgu",
+            "discountText": "-15%",
+            "isPro": true,
+            "proText": "Ultra Güvenli",
+            "proIcon": "fa-shield-halved",
+            "desc": "Harici (External) olarak çalışan bu özel hile, oyun dosyalarına direkt olarak müdahale etmediği için anti-cheat sistemlerini 100% atlatır.",
+            "rating": 5,
+            "ratingCount": 8430,
+            "tags": [
+                "FREE FIRE",
+                "External",
+                "Güvenli"
+            ],
+            "sales": 89,
+            "duration": "30 Gün",
+            "oldPrice": 1000,
+            "status": "active"
+        },
+        {
+            "id": "prod_3",
+            "name": "FREE FIRE - BYPASS",
+            "price": 1300,
+            "category": "FREE FIRE",
+            "popularity": 85,
+            "icon": "assets/ff_bypass_user.png",
+            "badgeText": "BAKIMDA",
+            "badgeIcon": "fa-wrench",
+            "badgeClass": "badge-vurgu",
+            "badgeStyle": "background:var(--danger);",
+            "isPro": true,
+            "proText": "PC Özel",
+            "proIcon": "fa-laptop",
+            "proStyle": "background:#444; color:#999;",
+            "desc": "Geçici olarak erişime kapatıldı. Geliştirici ekibimiz yepyeni bypass modüllerini entegre ediyor. Lütfen beklemede kalın.",
+            "rating": 4,
+            "ratingCount": 5102,
+            "tags": [
+                "FREE FIRE",
+                "Bypass",
+                "Emülatör"
+            ],
+            "sales": 54,
+            "duration": "30 Gün",
+            "oldPrice": 1500,
+            "status": "maintenance"
+        },
+        {
+            "id": "prod_4",
+            "name": "FREE FIRE - UID BYPASS",
+            "price": 1300,
+            "category": "FREE FIRE",
+            "popularity": 80,
+            "icon": "assets/ff_uid_bypass_user.png",
+            "badgeText": "Yeni Sistem",
+            "badgeIcon": "fa-id-card-clip",
+            "badgeClass": "badge-vurgu",
+            "discountText": "-10%",
+            "isPro": true,
+            "proText": "VIP Özellik",
+            "proIcon": "fa-star",
+            "desc": "Karaliste (Blacklist), ban tehlikesi veya HWID/Mac risklerini tamamen ortadan kaldıran premium UID Bypass koruma katmanı.",
+            "rating": 5,
+            "ratingCount": 3140,
+            "tags": [
+                "FREE FIRE",
+                "UID Bypass",
+                "Koruma"
+            ],
+            "sales": 32,
+            "duration": "30 Gün",
+            "oldPrice": 1500,
+            "status": "active"
+        },
+        {
+            "id": "prod_5",
+            "name": "FREE FIRE - IOS MOD MENÜSÜ",
+            "price": 2200,
+            "category": "FREE FIRE",
+            "popularity": 75,
+            "icon": "assets/ff_ios_mod.png",
+            "badgeText": "Apple Özel",
+            "badgeIcon": "fa-apple",
+            "badgeClass": "badge-vurgu",
+            "badgeStyle": "background: white; color: black;",
+            "isPro": true,
+            "proText": "Elite VIP",
+            "proIcon": "fa-crown",
+            "desc": "Jailbreak gerektirmeden direkt yüklenebilen iPhone/iPad (iOS) uyumlu cihazlar için özel Mod Menüsü. Aimbot ve Antiban dahil!",
+            "rating": 5,
+            "ratingCount": 2190,
+            "tags": [
+                "FREE FIRE",
+                "iOS",
+                "Sertifikalı"
+            ],
+            "sales": 18,
+            "duration": "30 Gün",
+            "oldPrice": 2500,
+            "status": "active"
+        }
+    ],
+    "w2_tickets": [
+        {
+            "id": "TCK-FQZAA6OXO",
+            "user": "savastx",
+            "subject": "panel kapanıyo",
+            "category": "Teknik Destek",
+            "date": "29.03.2026",
+            "status": "closed",
+            "messages": [
+                {
+                    "sender": "savastx",
+                    "content": "panel kendi kendine kapanıyo panelim mod menü",
+                    "timestamp": "29.03.2026 05:39:04"
+                },
+                {
+                    "sender": "Admin_W2",
+                    "content": "BANANE AQ",
+                    "timestamp": "29.03.2026 05:46:31"
+                },
+                {
+                    "sender": "savastx",
+                    "content": "nasıl banane\n",
+                    "timestamp": "29.03.2026 05:50:47"
+                }
+            ]
+        }
+    ]
+}

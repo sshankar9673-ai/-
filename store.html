@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mağaza - W2 CHEATS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="store.css">
+    <link rel="stylesheet" href="games.css">
+</head>
+<body class="dashboard-body">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <img src="assets/logo.png" alt="W2 Pro Logo" class="sidebar-logo">
+        </div>
+
+        <div class="user-profile-sm">
+            <div class="avatar" id="sidebarAvatar">SA</div>
+            <div class="user-info">
+                <h4><span id="displayUsername">Misafir</span> <i class="fa-solid fa-crown text-primary"></i></h4>
+                <span class="status"><i class="fa-solid fa-circle text-success"></i> Çevrimiçi • Kullanıcı</span>
+            </div>
+        </div>
+
+
+
+        <nav class="sidebar-nav">
+            <a href="profile.html" class="nav-item" data-i18n="Profil"><i class="fa-regular fa-user"></i> Profil</a>
+            
+            <div class="nav-dropdown">
+                <a href="#" class="nav-item nav-dropdown-toggle" data-i18n="Tarih"><i class="fa-solid fa-clock-rotate-left"></i> Tarih <i class="fa-solid fa-chevron-right ms-auto dropdown-icon"></i></a>
+                <div class="nav-submenu">
+                    <a href="history.html?type=payments" class="nav-sub-item" data-i18n="Ödeme Geçmişi"><i class="fa-regular fa-credit-card"></i> Ödeme Geçmişi</a>
+                    <a href="history.html?type=purchases" class="nav-sub-item" data-i18n="Satın Alma Geçmişi"><i class="fa-solid fa-cart-shopping"></i> Satın Alma Geçmişi</a>
+                    <a href="history.html?type=refunds" class="nav-sub-item" data-i18n="Para İadesi Geçmişi"><i class="fa-solid fa-money-bill-transfer"></i> Para İadesi Geçmişi</a>
+                </div>
+            </div>
+
+
+            <a href="store.html" class="nav-item active" data-i18n="Mağaza"><i class="fa-solid fa-bag-shopping"></i> Mağaza</a>
+            <a href="support.html" class="nav-item" data-i18n="Destek"><i class="fa-solid fa-headset"></i> Destek Merkezi</a>
+            
+            <!-- Dynamic Purchased Links Section -->
+            <div id="dynamicLinksContainer"></div>
+            
+            <div class="nav-divider"></div>
+            
+            <a href="https://chat.whatsapp.com/KX3XeFDc5KX0pMtUEO3EoA?mode=ems_copy_t" target="_blank" class="nav-item text-muted" data-i18n="WhatsApp Grubu"><i class="fa-brands fa-whatsapp"></i> WhatsApp Grubu <i class="fa-solid fa-arrow-up-right-from-square ms-auto"></i></a>
+            <a href="#" class="nav-item text-muted" data-i18n="Discord Sunucusu"><i class="fa-brands fa-discord"></i> Discord Sunucusu <i class="fa-solid fa-arrow-up-right-from-square ms-auto"></i></a>
+        </nav>
+
+        <a href="index.html" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Dışarı çıkmak</a>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Top Navbar -->
+        <header class="top-nav">
+            <div class="nav-left">
+                <button class="menu-toggle"><i class="fa-solid fa-bars"></i></button>
+            </div>
+            <div class="nav-actions">
+
+                <button class="action-btn active-orange" id="btnDailyBonus"><i class="fa-solid fa-gift"></i> Günlük Bonus</button>
+                <button class="action-btn border-orange"><i class="fa-solid fa-ticket"></i> Promosyon Kodu</button>
+
+                <button class="action-btn transparent active"><i class="fa-solid fa-lock"></i> Mağaza</button>
+                
+                <button class="icon-btn" onclick="toggleSettingsModal(true)"><i class="fa-solid fa-gear"></i></button>
+                
+                <button class="icon-btn" onclick="toggleNewsModal(true)"><i class="fa-regular fa-envelope"></i></button>
+                <button class="icon-btn" onclick="toggleNotifications(this, event)"><i class="fa-regular fa-bell"></i></button>
+                
+                <div class="cart-trigger" id="cartTrigger">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </div>
+                <div class="balance-badge">
+                    <i class="fa-solid fa-bolt"></i> <span id="userBalanceDisplay">0.00 ₺</span> <i class="fa-solid fa-star"></i>
+                </div>
+                <div class="top-avatar" id="navAvatar">SA</div>
+            </div>
+        </header>
+
+        <!-- Store Content -->
+        <div class="content-wrapper store-wrapper">
+            <div class="page-header store-header">
+                <div class="header-icon" style="background:var(--primary); color:white;"><i class="fa-solid fa-cart-shopping"></i></div>
+                <div>
+                    <h1>Mağaza</h1>
+                    <p>Premium Oyun Mağazası</p>
+                </div>
+            </div>
+
+            <!-- Hero Banner -->
+            <div class="store-hero">
+                <div class="hero-left">
+                    <div class="hero-badge"><i class="fa-solid fa-crown"></i> Premium Oyun Mağazası</div>
+                    <h1 class="hero-title">Hakimiyet Oyunu</h1>
+                    <p class="hero-desc">Üstün oyun geliştirmeleriyle potansiyelinizi ortaya çıkarın. En sevdiğiniz oyunlar için güvenli, güvenilir ve tespit edilemeyen hileler.</p>
+                    
+                    <div class="hero-actions">
+                        <button class="btn-primary" onclick="document.getElementById('productsSection').scrollIntoView({behavior:'smooth'})"><i class="fa-solid fa-cart-shopping"></i> Ürünlere Göz Atın <i class="fa-solid fa-arrow-right" style="margin-left:5px;"></i></button>
+                    </div>
+
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <h3>50.000+</h3>
+                            <p>Mutlu Kullanıcılar</p>
+                        </div>
+                        <div class="stat">
+                            <h3 style="color:#22c55e;">%99,9</h3>
+                            <p>Çevrimiçi Zaman</p>
+                        </div>
+                        <div class="stat">
+                            <h3 style="color:#0ea5e9;">7/24</h3>
+                            <p>Destek</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-right">
+                    <div class="quick-products-list">
+                        <!-- Quick Product 1 -->
+                        <div class="quick-product">
+                            <div class="qp-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+                            <div class="qp-info">
+                                <h4>FREE FIRE - MOD MENÜSÜ</h4>
+                                <span class="price dyn-price">1200 ₺</span>
+                            </div>
+                            <div class="qp-badge"><i class="fa-solid fa-arrow-trend-up"></i> Popüler</div>
+                        </div>
+
+                        <!-- Quick Product 2 -->
+                        <div class="quick-product">
+                            <div class="qp-icon"><i class="fa-solid fa-ghost"></i></div>
+                            <div class="qp-info">
+                                <h4>FREE FIRE - EXTERNAL</h4>
+                                <span class="price dyn-price">800 ₺</span>
+                            </div>
+                            <div class="qp-badge"><i class="fa-solid fa-arrow-trend-up"></i> Popüler</div>
+                        </div>
+
+                        <!-- Quick Product 3 -->
+                        <div class="quick-product">
+                            <div class="qp-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                            <div class="qp-info">
+                                <h4>FREE FIRE - BYPASS</h4>
+                                <span class="price dyn-price">1300 ₺</span>
+                            </div>
+                            <div class="qp-badge"><i class="fa-solid fa-arrow-trend-up"></i> Popüler</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Categories Section -->
+            <div class="store-section">
+                <div class="section-title">
+                    <i class="fa-solid fa-filter" style="color:var(--primary);"></i> <h2>Oyun Kategorileri</h2>
+                </div>
+                
+                <div class="categories-grid">
+                    <div class="category-card active" data-filter="ALL">
+                        <div class="cat-bg" style="background:#333;"></div>
+                        <div class="cat-content">
+                            <i class="fa-solid fa-layer-group"></i>
+                            <p>HEPSİ</p>
+                        </div>
+                    </div>
+
+                    <div class="category-card" data-filter="FREE FIRE">
+                        <div class="cat-bg w2-freefire-bg"></div>
+                        <div class="cat-content">
+                            <i class="fa-solid fa-location-crosshairs"></i>
+                            <p>FREE FIRE</p>
+                        </div>
+                    </div>
+                </div>
+
+            <!-- Search and Filter Bar -->
+            <div class="store-toolbar">
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="storeSearchInput" placeholder="Oyun hilelerini arayın...">
+                </div>
+                <div class="toolbar-actions">
+                    <div class="custom-select" id="sortSelectTrigger">
+                        <span id="currentSortText">En Popüler</span> <i class="fa-solid fa-chevron-down"></i>
+                        <div class="sort-options" id="sortOptions">
+                            <div class="sort-opt" data-sort="pop">En Popüler</div>
+                            <div class="sort-opt" data-sort="price-low">Fiyat (Düşükten Yükseğe)</div>
+                            <div class="sort-opt" data-sort="price-high">Fiyat (Yüksekten Düşüğe)</div>
+                            <div class="sort-opt" data-sort="name">İsim (A-Z)</div>
+                        </div>
+                    </div>
+                    <div class="view-toggles">
+                        <button class="active" id="gridViewBtn"><i class="fa-solid fa-table-cells-large"></i></button>
+                        <button id="listViewBtn"><i class="fa-solid fa-bars"></i></button>
+                    </div>
+                    <button class="btn-filter"><i class="fa-solid fa-sliders"></i> Filtreler</button>
+                </div>
+            </div>
+
+            <!-- Premium Products Grid -->
+            <div class="store-section" id="productsSection">
+                <div class="section-title" style="justify-content:space-between; display:flex; align-items:center; width:100%;">
+                    <div style="display:flex; align-items:center; gap:0.5rem;">
+                        <i class="fa-solid fa-cart-shopping" style="color:var(--primary);"></i> <h2>Premium Ürünler</h2>
+                    </div>
+                    <span class="stock-badge">5 adet mevcut</span>
+                </div>
+
+                <div class="premium-grid" id="productGrid">
+                    <!-- Products will be dynamically loaded here by JS -->
+                    <div style="grid-column: 1/-1; text-align: center; color: #888; padding: 2rem;">Yükleniyor...</div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- JS for Dynamic Store Rendering -->
+    <script>
+        function renderStoreProducts() {
+            const grid = document.getElementById('productGrid');
+            if (!grid) return;
+            
+            const products = JSON.parse(localStorage.getItem('w2_products') || '[]');
+            if (products.length === 0) {
+                grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: #888; padding: 2rem;">Henüz hiç ürün eklenmemiş.</div>';
+                return;
+            }
+
+            let html = '';
+            
+            // Helper for generating stars based on rating number
+            function genStars(rating) {
+                let stars = '';
+                for(let i=1; i<=5; i++) {
+                    if (i <= rating) stars += '<i class="fa-solid fa-star"></i>';
+                    else stars += '<i class="fa-regular fa-star"></i>';
+                }
+                return stars;
+            }
+
+            products.forEach(p => {
+                let statusHtml = '';
+                let overlayStyles = '';
+                let btnHtml = '';
+                
+                if (p.status === 'maintenance') {
+                    overlayStyles = 'filter: grayscale(100%);';
+                    statusHtml = `
+                        <div class="urgency-timer" style="background: rgba(239, 68, 68, 0.1); color: var(--danger); border-color: rgba(239, 68, 68, 0.2);">
+                            <i class="fa-solid fa-triangle-exclamation"></i> SİSTEM GÜNCELLEMESİ
+                        </div>`;
+                    btnHtml = `
+                        <button class="btn-buy" onclick="event.stopPropagation(); showToast('${p.name} şu anda sistem güncellemesi nedeniyle bakımda.', 'error', 'fa-solid fa-wrench');" style="background: #333; color: #888; cursor: not-allowed; border: 1px solid #444; box-shadow: none;">
+                            <i class="fa-solid fa-wrench"></i> <span>Bakımda</span>
+                        </button>`;
+                } else if (p.status === 'out_of_stock') {
+                    overlayStyles = 'filter: contrast(0.5); opacity: 0.7;';
+                    statusHtml = `
+                        <div class="urgency-timer" style="background: rgba(255, 160, 0, 0.1); color: #FFA000; border-color: rgba(255, 160, 0, 0.2);">
+                            <i class="fa-solid fa-box-open"></i> STOKTA YOK
+                        </div>`;
+                    btnHtml = `
+                        <button class="btn-buy" onclick="event.stopPropagation(); showToast('${p.name} stoklarda tükendi.', 'warning', 'fa-solid fa-box-open');" style="background: #333; color: #888; cursor: not-allowed; border: 1px solid #444; box-shadow: none;">
+                            <i class="fa-solid fa-box-open"></i> <span>Stok Yok</span>
+                        </button>`;
+                } else {
+                    statusHtml = `
+                        <div class="urgency-timer">
+                            <i class="fa-solid fa-hourglass-half"></i> İNDİRİMLİ SÜRE: <span class="countdown-timer">00:00:00</span>
+                        </div>`;
+                    btnHtml = `
+                        <button class="btn-buy" onclick="event.stopPropagation(); addToCart('${p.name}', ${p.price}, '${p.icon}')">
+                            <i class="fa-solid fa-cart-plus"></i> <span>Sepete Ekle</span>
+                        </button>`;
+                }
+
+                let badgeHtml = '';
+                if (p.badgeText) {
+                    badgeHtml += `<span class="${p.badgeClass}" style="${p.badgeStyle||''}"><i class="fa-solid ${p.badgeIcon}"></i> ${p.badgeText}</span>`;
+                }
+                if (p.discountText) {
+                    badgeHtml += `<span class="badge-discount">${p.discountText}</span>`;
+                }
+                
+                let proObj = '';
+                if (p.isPro) {
+                    proObj = `<span class="badge-pro" style="${p.proStyle||''}"><i class="fa-solid ${p.proIcon}"></i> ${p.proText}</span>`;
+                }
+                
+                let tagObj = '';
+                if (p.tags && p.tags.length > 0) {
+                    tagObj = `<div class="card-tags">` + p.tags.map(t => `<span>${t}</span>`).join('') + `</div>`;
+                }
+
+                html += `
+                    <div class="premium-card" onclick="showProductDetails('${p.name}')" style="cursor:pointer;" data-name="${p.name}" data-price="${p.price}" data-category="${p.category}" data-pop="${p.popularity}">
+                        <div class="card-img" style="background-image: url('${p.icon}'); background-position: center; background-size: cover; ${overlayStyles}">
+                            <div class="card-badges">
+                                ${badgeHtml}
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            ${statusHtml}
+                            <span class="category-tag">${p.category}</span>
+                            <div class="card-title-row">
+                                <h3 style="${p.status==='maintenance' ? 'color:#888; text-decoration: line-through;' : ''}">${p.name}</h3>
+                                ${proObj}
+                            </div>
+                            <p class="card-desc" style="${p.status==='maintenance' ? 'color:#666;' : ''}">${p.desc}</p>
+                            
+                            <div class="card-rating">
+                                ${genStars(p.rating)}
+                                <span>(${p.ratingCount})</span>
+                            </div>
+
+                            ${tagObj}
+
+                            <div class="card-footer">
+                                <div class="sales"><i class="fa-regular fa-user"></i> ${p.sales} satıldı</div>
+                                <div class="duration"><i class="fa-regular fa-clock"></i> ${p.duration}</div>
+                                <div class="price-box">
+                                    <span class="old-price dyn-price">${p.oldPrice} ₺</span>
+                                    <span class="new-price dyn-price">${p.price} ₺</span>
+                                </div>
+                            </div>
+                            ${btnHtml}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            grid.innerHTML = html;
+            
+            // Format dynamic prices if any functions exist in script.js
+            const sym = localStorage.getItem('w2_currency') || '₺';
+            grid.querySelectorAll('.dyn-price').forEach(el => {
+                const valStr = el.innerText.replace(/[^0-9.]/g, '');
+                if (valStr) el.innerText = parseFloat(valStr).toFixed(2) + ' ' + sym;
+            });
+        }
+        
+        // Wait for script.js to sync the remote database or just render locally right away
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.dbSyncPromise) {
+                window.dbSyncPromise.then(renderStoreProducts).catch(renderStoreProducts);
+            } else {
+                renderStoreProducts();
+            }
+        });
+    </script>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal-overlay" id="cartModalOverlay">
+        <div class="cart-modal">
+            <div class="cart-modal-header">
+                <h3><i class="fa-solid fa-cart-shopping"></i> Alışveriş Sepeti</h3>
+                <button class="close-cart" id="closeCart"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="cart-modal-body" id="cartContent">
+                <!-- Cart items will be injected here -->
+                <div class="empty-cart-msg">
+                    <i class="fa-solid fa-cart-arrow-down"></i>
+                    <p>Sepetiniz şu anda boş.</p>
+                </div>
+            </div>
+            <div class="cart-modal-footer">
+                <div class="cart-total">
+                    <span>Toplam:</span>
+                    <span id="cartTotalPrice">0.00 ₺</span>
+                </div>
+                <button class="btn-checkout" id="checkoutBtn" disabled>
+                    <i class="fa-solid fa-credit-card"></i> Satın Almayı Tamamla
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+
+
+    <!-- Spin the Wheel Game Modal -->
+    <div id="spinWheelModalOverlay" class="modal-overlay">
+        <div class="spin-wheel-modal">
+            <div class="modal-header">
+                <div class="header-with-icon">
+                    <div class="header-icon-orange"><i class="fa-solid fa-dharmachakra"></i></div>
+                    <div>
+                        <h2>Döndürme Çarkı</h2>
+                        <p>Çarkı çevirin ve muhteşem ödüller kazanın!</p>
+                    </div>
+                </div>
+                <button class="close-modal-btn" onclick="toggleSpinModal(false)"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="wheel-game-container">
+                <!-- Left: Interactive Wheel -->
+                <div class="wheel-section">
+                    <div class="wheel-outer">
+                        <div class="wheel-pointer"></div>
+                        <div class="wheel" id="mainWheel">
+                            <div class="wheel-inner" id="wheelImg">
+                                <div class="segment" data-type="bonus" style="transform: rotate(0deg);"><span><i class="fa-solid fa-coins"></i>BONUS KREDİSİ</span></div>
+                                <div class="segment" data-type="skull" style="transform: rotate(45deg);"><span><i class="fa-solid fa-skull"></i>KAFATASI ÜŞÜMESİ!!</span></div>
+                                <div class="segment" data-type="gift" style="transform: rotate(90deg);"><span><i class="fa-solid fa-gift"></i>1 GÜNLÜK ÜRÜN</span></div>
+                                <div class="segment" data-type="skull" style="transform: rotate(135deg);"><span><i class="fa-solid fa-skull"></i>KAFATASI ÜŞÜMESİ!!</span></div>
+                                <div class="segment" data-type="gift" style="transform: rotate(180deg);"><span><i class="fa-solid fa-gift"></i>7 GÜNLÜK ÜRÜN</span></div>
+                                <div class="segment" data-type="skull" style="transform: rotate(225deg);"><span><i class="fa-solid fa-skull"></i>KAFATASI ÜŞÜMESİ!!</span></div>
+                                <div class="segment" data-type="vip" style="transform: rotate(270deg);"><span><i class="fa-solid fa-crown"></i>30 GÜNLÜK ÜRÜN</span></div>
+                                <div class="segment" data-type="skull" style="transform: rotate(315deg);"><span><i class="fa-solid fa-skull"></i>KAFATASI ÜŞÜMESİ!!</span></div>
+                            </div>
+                            <div class="wheel-center"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Controls -->
+                <div class="wheel-controls">
+                    <div class="balance-display-box">
+                        <div class="box-icon"><i class="fa-solid fa-wallet"></i></div>
+                        <div>
+                            <p>MEVCUT BAKİYE</p>
+                            <h3 id="wheelBalanceText">0.00 ₺</h3>
+                        </div>
+                    </div>
+
+                    <div class="bet-control">
+                        <div class="bet-label">
+                            <span><i class="fa-solid fa-circle"></i> BAHİS</span>
+                            <span id="betAmountDisplay">1.00 ₺</span>
+                        </div>
+                    </div>
+
+                    <div class="multiplier-section">
+                        <p>ÇARPAN</p>
+                        <div class="multiplier-tabs">
+                            <button class="m-tab active" onclick="setMultiplier(1, this)">1x</button>
+                            <button class="m-tab" onclick="setMultiplier(5, this)">5x</button>
+                            <button class="m-tab" onclick="setMultiplier(10, this)">10x</button>
+                        </div>
+                    </div>
+
+                    <button class="btn-spin-wheel" id="btnSpin">DÖNDÜR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Update prices currency
+            const sym = localStorage.getItem('w2_currency') || '₺';
+            document.querySelectorAll('.dyn-price').forEach(el => {
+                const valStr = el.innerText.replace(/[^0-9.]/g, '');
+                if (valStr) {
+                    el.innerText = parseFloat(valStr).toFixed(2) + ' ' + sym;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

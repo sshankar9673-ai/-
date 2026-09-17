@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil - W2 CHEATS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="profile.css">
+    <script>
+        // Instant Theme Loader - Prevents "Orange Flash"
+        (function() {
+            const savedH = localStorage.getItem('w2_primary_h');
+            if (savedH) document.documentElement.style.setProperty('--primary-h', savedH);
+        })();
+    </script>
+    <link rel="stylesheet" href="games.css">
+</head>
+<body class="dashboard-body">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <img src="assets/logo.png" alt="W2 Pro Logo" class="sidebar-logo">
+        </div>
+
+        <div class="user-profile-sm">
+            <div class="avatar" id="sidebarAvatar">SA</div>
+            <div class="user-info">
+                <h4><span id="displayUsername">Misafir</span> <i class="fa-solid fa-crown text-primary"></i></h4>
+                <span class="status"><i class="fa-solid fa-circle text-success"></i> Çevrimiçi • Kullanıcı</span>
+            </div>
+        </div>
+
+
+
+        <nav class="sidebar-nav">
+            <a href="profile.html" class="nav-item active" data-i18n="Profil"><i class="fa-regular fa-user"></i> Profil</a>
+            
+            <div class="nav-dropdown">
+                <a href="#" class="nav-item nav-dropdown-toggle" data-i18n="Tarih"><i class="fa-solid fa-clock-rotate-left"></i> Tarih <i class="fa-solid fa-chevron-right ms-auto dropdown-icon"></i></a>
+                <div class="nav-submenu">
+                    <a href="history.html?type=payments" class="nav-sub-item" data-i18n="Ödeme Geçmişi"><i class="fa-regular fa-credit-card"></i> Ödeme Geçmişi</a>
+                    <a href="history.html?type=purchases" class="nav-sub-item" data-i18n="Satın Alma Geçmişi"><i class="fa-solid fa-cart-shopping"></i> Satın Alma Geçmişi</a>
+                    <a href="history.html?type=refunds" class="nav-sub-item" data-i18n="Para İadesi Geçmişi"><i class="fa-solid fa-money-bill-transfer"></i> Para İadesi Geçmişi</a>
+                </div>
+            </div>
+
+
+            <a href="store.html" class="nav-item" data-i18n="Mağaza"><i class="fa-solid fa-bag-shopping"></i> Mağaza</a>
+            <a href="support.html" class="nav-item" data-i18n="Destek"><i class="fa-solid fa-headset"></i> Destek Merkezi</a>
+            
+            <!-- Dynamic Purchased Links Section -->
+            <div id="dynamicLinksContainer"></div>
+            
+            <div class="nav-divider"></div>
+            
+            <a href="https://chat.whatsapp.com/KX3XeFDc5KX0pMtUEO3EoA?mode=ems_copy_t" target="_blank" class="nav-item text-muted" data-i18n="WhatsApp Grubu"><i class="fa-brands fa-whatsapp"></i> WhatsApp Grubu <i class="fa-solid fa-arrow-up-right-from-square ms-auto"></i></a>
+            <a href="#" class="nav-item text-muted" data-i18n="Discord Sunucusu"><i class="fa-brands fa-discord"></i> Discord Sunucusu <i class="fa-solid fa-arrow-up-right-from-square ms-auto"></i></a>
+        </nav>
+
+        <a href="index.html" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Dışarı çıkmak</a>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Top Navbar -->
+        <header class="top-nav">
+            <div class="nav-left">
+                <button class="menu-toggle"><i class="fa-solid fa-bars"></i></button>
+            </div>
+            <div class="nav-actions">
+
+                <button class="action-btn active-orange"><i class="fa-solid fa-gift"></i> Günlük Bonus</button>
+                <button class="action-btn border-orange"><i class="fa-solid fa-ticket"></i> Promosyon Kodu</button>
+
+                <button class="action-btn transparent active"><i class="fa-solid fa-user"></i> Profil</button>
+                
+                <button class="icon-btn" onclick="toggleSettingsModal(true)"><i class="fa-solid fa-gear"></i></button>
+                
+                <button class="icon-btn" onclick="toggleNewsModal(true)"><i class="fa-regular fa-envelope"></i></button>
+                <button class="icon-btn" onclick="toggleNotifications(this, event)"><i class="fa-regular fa-bell"></i></button>
+                
+                <div class="balance-badge">
+                    <i class="fa-solid fa-bolt"></i> <span id="userBalanceDisplay">0.00 ₺</span> <i class="fa-solid fa-star"></i>
+                </div>
+                <div class="top-avatar" id="navAvatar">SA</div>
+            </div>
+        </header>
+
+        <div class="content-wrapper profile-wrapper">
+            <div class="page-header">
+                <div class="header-icon"><i class="fa-solid fa-user"></i></div>
+                <div>
+                    <h1>Profil Paneli</h1>
+                    <p>Hesap ayarlarınızı yönetin ve aktif ürünlerinizi görüntüleyin.</p>
+                </div>
+            </div>
+
+            <!-- Referral Program Section -->
+            <div class="profile-card referral-section">
+                <div class="card-header">
+                    <div class="header-icon-sm"><i class="fa-solid fa-users"></i></div>
+                    <div class="header-text">
+                        <h3>YÖNLENDİRME PROGRAMI</h3>
+                        <p>10 ARKADAŞINIZI DAVET ETTİĞİNİZDE 100,00 ₺ KAZANIN.</p>
+                    </div>
+                    <div class="friends-status">NİTELİKLİ ARKADAŞLAR <span class="status-count">0/10</span></div>
+                </div>
+
+                <div class="referral-slots">
+                    <div class="slot unlocked"><i class="fa-solid fa-user-check"></i><div class="connector"></div></div>
+                    <div class="slot"><i class="fa-solid fa-lock"></i><div class="connector"></div></div>
+                    <div class="slot"><i class="fa-solid fa-lock"></i><div class="connector"></div></div>
+                    <div class="slot"><i class="fa-solid fa-lock"></i><div class="connector"></div></div>
+                    <div class="slot"><i class="fa-solid fa-lock"></i><div class="connector"></div></div>
+                    <div class="slot"><i class="fa-solid fa-lock"></i><div class="connector"></div></div>
+                    <div class="slot"><i class="fa-solid fa-lock"></i><div class="connector"></div></div>
+                    <div class="slot"><i class="fa-solid fa-lock"></i><div class="connector"></div></div>
+                    <div class="slot"><i class="fa-solid fa-lock"></i><div class="connector"></div></div>
+                    <div class="slot"><i class="fa-solid fa-lock"></i></div>
+                </div>
+
+                <div class="referral-footer">
+                    <div class="referral-link-box">
+                        <label>DAVET BAĞLANTINIZ</label>
+                        <div class="link-input-group">
+                            <input type="text" id="referralLinkInput" readonly value="https://discord.gg/r4bPh96N2y">
+                            <button class="btn-copy" onclick="copyReferralLink()"><i class="fa-regular fa-copy"></i> KOPYALA</button>
+                        </div>
+                    </div>
+                    
+                    <div class="referral-msg">
+                        <div class="msg-icon"><i class="fa-solid fa-bolt"></i></div>
+                        <p><strong>İPUCU:</strong> Bağlantınızı kullanarak kayıt olan ve <strong>20,00 ₺</strong> veya daha fazla yükleme yapan her arkadaşınız için 1 puan kazanırsınız. 10 puana ulaştığınızda, bakiyenize doğrudan <strong>100,00 ₺</strong> ekleyeceğiz!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-grid">
+
+
+                <!-- Update Profile Card (Existing) -->
+                <div class="profile-card update-profile">
+                    <div class="card-header">
+                        <div class="header-icon-sm orange"><i class="fa-solid fa-user-gear"></i></div>
+                        <div class="header-text">
+                            <h3 data-i18n="Profili Güncelle">Profili Güncelle</h3>
+                            <p data-i18n="Genel Bilgiler">Genel Bilgiler</p>
+                        </div>
+                        <span class="badge-premium"><i class="fa-solid fa-crown"></i> Premium</span>
+                    </div>
+
+                    <form class="profile-form" id="updatePasswordForm">
+                        <div class="form-section">
+                            <label>Hesap Bilgileri</label>
+                            <div class="input-group">
+                                <i class="fa-regular fa-user"></i>
+                                <input type="text" id="profileUsername" value="misafir" readonly>
+                                <span class="verified-badge">Doğrulandı</span>
+                            </div>
+                            <div class="input-group">
+                                <i class="fa-regular fa-envelope"></i>
+                                <input type="email" id="profileEmail" value="misafir@gmail.com" readonly>
+                                <span class="verified-badge">Doğrulandı</span>
+                            </div>
+                        </div>
+
+                        <div class="date-info">
+                            <div class="date-item">
+                                <p>Üyelik başlangıç tarihi</p>
+                                <strong id="registrationDateDisplay">26/04/2025</strong>
+                            </div>
+                            <div class="date-item">
+                                <p>Son giriş</p>
+                                <strong id="lastLoginDateDisplay">24/03/2026</strong>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <label>Güvenlik Ayarları</label>
+                            <div class="input-group">
+                                <i class="fa-solid fa-key"></i>
+                                <input type="password" id="newPassword" placeholder="Yeni şifreyi girin.">
+                                <i class="fa-regular fa-eye-slash toggle-pw"></i>
+                            </div>
+                            <div class="input-group">
+                                <i class="fa-solid fa-key"></i>
+                                <input type="password" id="confirmNewPassword" placeholder="Yeni şifreyi onaylayın.">
+                                <i class="fa-regular fa-eye-slash toggle-pw"></i>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-update-pw"><i class="fa-solid fa-lock"></i> ŞİFREYİ GÜNCELLE</button>
+                        <p class="form-footer-msg">Parolanız şifrelenmiş ve güvenlidir. Değişiklikler hemen yürürlüğe girer.</p>
+                    </form>
+                </div>
+
+                <!-- Session History Card -->
+                <div class="profile-card glass" style="margin-top: 2rem;">
+                    <div class="card-header">
+                        <div class="header-info">
+                            <h3 data-i18n="Oturum Geçmişi">Oturum Geçmişi</h3>
+                            <p data-i18n="Son 5 Giriş Denemesi">Son 5 Giriş Denemesi</p>
+                        </div>
+                        <i class="fa-solid fa-shield-halved text-primary" style="font-size: 1.5rem;"></i>
+                    </div>
+                    
+                    <div class="session-list" id="sessionHistoryList">
+                        <!-- Sessions will be injected here -->
+                        <div style="padding: 2rem; text-align: center; color: #666;">Yükleniyor...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+
+
+
+    <!-- Spin the Wheel Game Modal -->
+    <div id="spinWheelModalOverlay" class="modal-overlay">
+        <div class="spin-wheel-modal">
+            <div class="modal-header">
+                <div class="header-with-icon">
+                    <div class="header-icon-orange"><i class="fa-solid fa-dharmachakra"></i></div>
+                    <div>
+                        <h2>Döndürme Çarkı</h2>
+                        <p>Çarkı çevirin ve muhteşem ödüller kazanın!</p>
+                    </div>
+                </div>
+                <button class="close-modal-btn" onclick="toggleSpinModal(false)"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="wheel-game-container">
+                <!-- Left: Interactive Wheel -->
+                <div class="wheel-section">
+                    <div class="wheel-outer">
+                        <div class="wheel-pointer"></div>
+                        <div class="wheel" id="mainWheel">
+                            <div class="wheel-inner" id="wheelImg">
+                                <div class="segment" data-type="bonus" style="transform: rotate(0deg);"><span><i class="fa-solid fa-coins"></i>BONUS KREDİSİ</span></div>
+                                <div class="segment" data-type="skull" style="transform: rotate(45deg);"><span><i class="fa-solid fa-skull"></i>KAFATASI ÜŞÜMESİ!!</span></div>
+                                <div class="segment" data-type="gift" style="transform: rotate(90deg);"><span><i class="fa-solid fa-gift"></i>1 GÜNLÜK ÜRÜN</span></div>
+                                <div class="segment" data-type="skull" style="transform: rotate(135deg);"><span><i class="fa-solid fa-skull"></i>KAFATASI ÜŞÜMESİ!!</span></div>
+                                <div class="segment" data-type="gift" style="transform: rotate(180deg);"><span><i class="fa-solid fa-gift"></i>7 GÜNLÜK ÜRÜN</span></div>
+                                <div class="segment" data-type="skull" style="transform: rotate(225deg);"><span><i class="fa-solid fa-skull"></i>KAFATASI ÜŞÜMESİ!!</span></div>
+                                <div class="segment" data-type="vip" style="transform: rotate(270deg);"><span><i class="fa-solid fa-crown"></i>30 GÜNLÜK ÜRÜN</span></div>
+                                <div class="segment" data-type="skull" style="transform: rotate(315deg);"><span><i class="fa-solid fa-skull"></i>KAFATASI ÜŞÜMESİ!!</span></div>
+                            </div>
+                            <div class="wheel-center"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Controls -->
+                <div class="wheel-controls">
+                    <div class="balance-display-box">
+                        <div class="box-icon"><i class="fa-solid fa-wallet"></i></div>
+                        <div>
+                            <p>MEVCUT BAKİYE</p>
+                            <h3 id="wheelBalanceText">0.00 ₺</h3>
+                        </div>
+                    </div>
+
+                    <div class="bet-control">
+                        <div class="bet-label">
+                            <span><i class="fa-solid fa-circle"></i> BAHİS</span>
+                            <span id="betAmountDisplay">1.00 ₺</span>
+                        </div>
+                    </div>
+
+                    <div class="multiplier-section">
+                        <p>ÇARPAN</p>
+                        <div class="multiplier-tabs">
+                            <button class="m-tab active" onclick="setMultiplier(1, this)">1x</button>
+                            <button class="m-tab" onclick="setMultiplier(5, this)">5x</button>
+                            <button class="m-tab" onclick="setMultiplier(10, this)">10x</button>
+                        </div>
+                    </div>
+
+                    <button class="btn-spin-wheel" id="btnSpin">DÖNDÜR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set referral link - as requested: Discord link
+            const linkInput = document.getElementById('referralLinkInput');
+            if (linkInput) {
+                linkInput.value = "https://discord.gg/r4bPh96N2y";
+            }
+
+
+        });
+    </script>
+</body>
+</html>
